@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>977240906347-6i3eete6s9cj5amlbg6csle55otp8jfl.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.977240906347-6i3eete6s9cj5amlbg6csle55otp8jfl</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>977240906347-62hranm5abn9h036g7sq0m4g51adpb7t.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBeT76rlz40z2XvPzYDP8e_pvbReywzNwM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>977240906347</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.vipsace.ace</string>
+	<key>PROJECT_ID</key>
+	<string>acevips</string>
+	<key>STORAGE_BUCKET</key>
+	<string>acevips.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:977240906347:ios:7a3c366172db8676322f2e</string>
+</dict>
+</plist>
