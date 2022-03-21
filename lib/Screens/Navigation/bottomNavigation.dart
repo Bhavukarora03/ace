@@ -27,6 +27,8 @@ class _NavigationScreenState extends State<NavigationScreen> {
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
         child: GNav(
+
+
           selectedIndex: _currentIndex,
           onTabChange: (index) {
             setState(() {
@@ -47,12 +49,12 @@ class _NavigationScreenState extends State<NavigationScreen> {
               text: 'Home',
             ),
             GButton(
-              icon: Icons.location_on,
-              text: 'Likes',
+              icon: Icons.newspaper,
+              text: 'News',
             ),
             GButton(
-              icon: Icons.search,
-              text: 'Search',
+              icon: Icons.shopping_bag_outlined,
+              text: 'Shop',
             ),
             GButton(
               icon: Icons.person,
@@ -65,3 +67,4 @@ class _NavigationScreenState extends State<NavigationScreen> {
     );
   }
 }
+

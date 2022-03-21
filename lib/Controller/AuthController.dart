@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   var _googlesignin = GoogleSignIn();
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var googleSignUser = Rx<GoogleSignInAccount?>(null);
 
@@ -45,7 +46,17 @@ class AuthController extends GetxController {
   }
 
   GoogleSignoutMethod() async {
-    await _auth.signOut();
+    googleSignUser.value = await _googlesignin.signOut();
+
+
+    if (googleSignUser.value == true) {
+      Get.to(()=> NavigationScreen());
+    } else {
+      Get.offAll(()=> AuthenticationScreen());
+    }
+
+
+
   }
 
   void SignInWithEmailAndPassword() async {

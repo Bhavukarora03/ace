@@ -1,3 +1,4 @@
+import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -10,22 +11,22 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      scrollDirection: Axis.horizontal,
-      slivers: [
+    return Scaffold(
 
-      ],
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+         children: [
+           Expanded(
+
+
+             child: Lottie.asset('assets/lottie/ace.json'),
+           )
+         ],
+      )
+
+     
 
     );
   }
 }
 
-Widget _ProfileListView(){
-
-  return ListView.builder(
-      itemCount: 2,
-      itemBuilder: (context, Index){
-    return Container();
-  }
-  );
-}

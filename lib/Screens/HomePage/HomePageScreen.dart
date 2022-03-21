@@ -71,6 +71,8 @@ ACE
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+
       appBar: AppBar(
         toolbarHeight: 80,
         backgroundColor: Colors.black,
@@ -424,7 +426,9 @@ ACE
             height: 20,
           ),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.to(()=> ProfileScreen());
+            },
             child:  Text(
               'Profile',
               style: GoogleFonts.catamaran(
@@ -462,13 +466,16 @@ ACE
           const SizedBox(
             height: 45,
           ),
-        Text(
-            'Log Out',
-            style: GoogleFonts.catamaran(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
-            textAlign: TextAlign.center,
+        GestureDetector(
+          onTap: (){
+            controller.GoogleSignoutMethod();
+          },
+             child: Text('Log Out',
+               style: GoogleFonts.catamaran(
+                 fontSize: 18,
+                 fontWeight: FontWeight.w700,
+               ),
+               textAlign: TextAlign.center,),
           ),
 
         ],
