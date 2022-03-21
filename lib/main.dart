@@ -1,5 +1,8 @@
+import 'package:ace/Screens/Authentication/AuthenticationScreen.dart';
 import 'package:ace/Screens/HomePage/HomePageScreen.dart';
+import 'package:ace/Screens/Navigation/bottomNavigation.dart';
 import 'package:ace/Screens/OnBoardingScreen.dart';
+import 'package:ace/Screens/Profile/ProfileScreen.dart';
 import 'package:ace/Screens/SplashScreen.dart';
 import 'package:ace/helper/bindings.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +12,7 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -25,11 +28,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
         dividerColor: Colors.grey,
       ),
-      initialRoute: '/',
+      initialRoute: '/splashscreen',
       getPages: [
-        GetPage(name: '/', page: () => const SplashScreen()),
-        GetPage(name: '/second', page: () => Home()),
-        GetPage(name: '/third', page: () => HomePage())
+        GetPage(name: '/splashscreen' ,page: () =>  SplashScreen()),
+        GetPage(name: '/authenticationScreen', page: ()=> AuthenticationScreen()),
+        //GetPage(name: '/MainScreen', page: ()=> NavigationScreen())
+        //GetPage(name: '/second', page: () => Home()),
+
       ],
     );
   }

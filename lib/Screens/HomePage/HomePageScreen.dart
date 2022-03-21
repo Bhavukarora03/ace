@@ -1,10 +1,17 @@
 import 'package:ace/Controller/AuthController.dart';
+import 'package:ace/Screens/News/News.dart';
+import 'package:ace/Screens/Profile/ProfileScreen.dart';
+import 'package:ace/Screens/Shop/Shop.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
+import 'package:getwidget/components/intro_screen/gf_intro_screen_bottom_navigation_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:ace/Screens/Navigation/bottomNavigation.dart';
+
+
+import '../Navigation/bottomNavigation.dart';
 
 GlobalKey<ScaffoldState> scaffolKey = GlobalKey<ScaffoldState>();
 
@@ -16,7 +23,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  AuthController controller = AuthController();
+  AuthController controller = Get.put(AuthController());
+
+
+
+
+
 
   String headlinesHeads = 'Latest';
 
@@ -63,16 +75,19 @@ ACE
         toolbarHeight: 80,
         backgroundColor: Colors.black,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(bottomLeft: Radius.circular(45)),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(bottomLeft: const Radius.circular(45)),
         ),
       ),
       key: scaffolKey,
-      bottomNavigationBar: _navigationBar(),
+
       drawer: _DrawerBar(),
       drawerDragStartBehavior: DragStartBehavior.start,
       drawerEdgeDragWidth: 30,
-      body: CustomScrollView(
+      body:
+
+      CustomScrollView(
+
         slivers: [
           _header(),
           _recommendation(),
@@ -100,9 +115,9 @@ ACE
       height: 185,
       width: 339,
       margin: const EdgeInsets.only(left: 16, bottom: 25, top: 19),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.black87,
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        borderRadius: BorderRadius.all(Radius.circular(12)),
       ),
       child: Stack(
         children: [
@@ -201,11 +216,11 @@ ACE
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Hey, Bhavuk',
-                      style: TextStyle(
+                   "Hey, ${controller.googleSignUser.value?.displayName ?? ''}",
+                      style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'SF Pro Display',
-                        fontSize: 34,
+                        fontSize: 25,
                         fontWeight: FontWeight.w900,
                       ),
                     ),
@@ -239,8 +254,8 @@ ACE
                     },
                     child: Container(
                       padding:
-                          EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                      margin: EdgeInsets.only(
+                          const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      margin: const EdgeInsets.only(
                         left: 22,
                         right: 16.0,
                         top: 30.0,
@@ -254,7 +269,7 @@ ACE
                       ),
                       child: Text(
                         headlinesHeadsText,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 14,
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
@@ -303,8 +318,8 @@ ACE
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _recommendedCards(Color(0xff441DFC), const Color(0xff4E81EB)),
-                _recommendedCards(Color(0xffFC67A7), const Color(0xffF6815B)),
+                _recommendedCards(const Color(0xff441DFC), const Color(0xff4E81EB)),
+                _recommendedCards(const Color(0xffFC67A7), const Color(0xffF6815B)),
               ],
             ),
           ),
@@ -385,136 +400,82 @@ ACE
     );
   }
 
-  Widget _navigationBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 30.0),
-      child: GNav(
-          tabBorderRadius: 50,
-          tabActiveBorder: Border.all(color: Colors.black, width: 1),
-          curve: Curves.easeOutExpo, // tab animation curves
-          duration: Duration(milliseconds: 100), // tab animation duration
-          color: Colors.grey[800], // unselected icon color
-          iconSize: 24, // tab button icon size
 
-          padding: EdgeInsets.all(10), // navigation bar padding
-          tabs: const [
-            GButton(
-              icon: LineIcons.home,
-              text: 'Home',
-            ),
-            GButton(
-              icon: LineIcons.heart,
-              text: 'Likes',
-            ),
-            GButton(
-              icon: LineIcons.search,
-              text: 'Search',
-            ),
-            GButton(
-              icon: LineIcons.user,
-              text: 'Profile',
-            )
-          ]),
-    );
-  }
 
   Widget _DrawerBar() {
     return Drawer(
+      elevation: 0,
       child: Column(
         children: <Widget>[
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           DrawerHeader(
-            child: Container(
-                height: 142,
-                child: Image.asset(
-                  "assets/images/acelogo.png",
-                  color: Colors.black,
-                  scale: 4,
-                )),
-            decoration: BoxDecoration(
+            child: CircleAvatar(
+                radius: 60,
+              backgroundImage: Image.network(controller.googleSignUser.value?.photoUrl ?? '').image,
+
+          ),
+            decoration: const BoxDecoration(
               color: Colors.transparent,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           GestureDetector(
             onTap: () {},
-            child: Text(
+            child:  Text(
               'Profile',
-              style: TextStyle(
-                fontFamily: 'Avenir',
-                fontSize: 24,
+              style: GoogleFonts.catamaran(
+                fontSize: 18,
                 fontWeight: FontWeight.w700,
               ),
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 45,
           ),
           GestureDetector(
             onTap: () {},
             child: Text(
               'Settings',
-              style: TextStyle(
-                fontFamily: 'Avenir',
-                fontSize: 24,
+              style: GoogleFonts.catamaran(
+                fontSize: 18,
                 fontWeight: FontWeight.w700,
               ),
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 45,
           ),
-          Text(
+           Text(
             'About',
-            style: TextStyle(
-              fontFamily: 'Avenir',
-              fontSize: 24,
+            style: GoogleFonts.catamaran(
+              fontSize: 18,
               fontWeight: FontWeight.w700,
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(
+          const SizedBox(
             height: 45,
           ),
-          Text(
+        Text(
             'Log Out',
-            style: TextStyle(
-              fontFamily: 'Avenir',
-              fontSize: 24,
+            style: GoogleFonts.catamaran(
+              fontSize: 18,
               fontWeight: FontWeight.w700,
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(
-            height: 45,
-          ),
-          Expanded(
-              child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              height: 40,
-              color: Colors.black,
-              child: Center(
-                child: Text(
-                  'v 0.1',
-                  style: TextStyle(
-                    fontFamily: 'Avenir',
-                    fontSize: 20,
-                    color: const Color(0xffffffff),
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ))
+
         ],
       ),
     );
   }
+
 }
+
+

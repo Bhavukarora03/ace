@@ -1,18 +1,24 @@
+import 'package:ace/Screens/Authentication/AuthenticationScreen.dart';
+import 'package:ace/Screens/HomePage/HomePageScreen.dart';
+import 'package:ace/Screens/Navigation/bottomNavigation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
-  final GoogleSignIn _googlesignin = GoogleSignIn(scopes: ['email']);
+  var _googlesignin = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  var googleSignUser = Rx<GoogleSignInAccount?>(null);
+
+
   late final String email;
   late final String password;
   late final String userName;
 
+
+
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
   }
 
@@ -28,28 +34,24 @@ class AuthController extends GetxController {
     super.onClose();
   }
 
-  void GoogleSignInMethod() async {
-    final GoogleSignInAccount? googleSignUser = await _googlesignin.signIn();
-    // print(googleSignUser);
+  GoogleSignInMethod() async {
+    googleSignUser.value = await _googlesignin.signIn();
 
-    if (googleSignUser != null) {
-      Get.offAllNamed('/third');
-    } else {}
-
-    GoogleSignInAuthentication? googleSignInAuthentic =
-        await googleSignUser?.authentication;
-
-    final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: googleSignInAuthentic?.idToken,
-        accessToken: googleSignInAuthentic?.accessToken);
-    final UserCredential user = await _auth.signInWithCredential(credential);
+    if (googleSignUser.value == null) {
+      Get.to(()=> AuthenticationScreen());
+    } else {
+      Get.to(()=> NavigationScreen());
+    }
   }
 
-  void GoogleSignoutMethod() async {
+  GoogleSignoutMethod() async {
     await _auth.signOut();
   }
 
   void SignInWithEmailAndPassword() async {
     await _auth.signInWithEmailAndPassword(email: email, password: password);
   }
+
+
+
 }

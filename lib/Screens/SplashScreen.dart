@@ -1,3 +1,4 @@
+import 'package:ace/Screens/Authentication/AuthenticationScreen.dart';
 import 'package:ace/Screens/OnBoardingScreen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: Lottie.asset("assets/lottie/splash.json"),
-      nextScreen: Home(),
+      nextScreen: AuthenticationScreen(),
       backgroundColor: Colors.black,
       duration: 1000,
       // curve: Curves.easeInCirc,
