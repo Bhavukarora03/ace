@@ -59,6 +59,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/lottie/
     - assets/lottie/splash.json
     - assets/images/acelogo.png
 

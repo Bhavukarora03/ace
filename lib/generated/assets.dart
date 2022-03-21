@@ -6,6 +6,7 @@ class Assets {
   static const String imagesAcelogo = 'assets/images/acelogo.png';
   static const String lottieAce = 'assets/lottie/ace.json';
   static const String lottieNews = 'assets/lottie/News.json';
+  static const String lottieProfile = 'assets/lottie/profile.json';
   static const String lottieShop = 'assets/lottie/Shop.json';
   static const String lottieSplash = 'assets/lottie/splash.json';
 

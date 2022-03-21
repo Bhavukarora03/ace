@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:flutter/material.dart';
 
@@ -14,13 +15,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
 
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
          children: [
-           Expanded(
+
+           Container(child: Text('COMING SOON', style: GoogleFonts.catamaran(fontSize: 20, fontWeight: FontWeight.w900),)),
+           Container(
 
 
-             child: Lottie.asset('assets/lottie/ace.json'),
-           )
+             child: Lottie.asset("assets/lottie/profile.json"),
+           ),
+
          ],
       )
 
