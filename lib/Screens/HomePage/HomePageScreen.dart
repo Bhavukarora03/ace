@@ -6,10 +6,11 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:getwidget/components/avatar/gf_avatar.dart';
 import 'package:getwidget/components/intro_screen/gf_intro_screen_bottom_navigation_bar.dart';
+import 'package:getwidget/shape/gf_avatar_shape.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ace/Screens/Navigation/bottomNavigation.dart';
-
 
 import '../Navigation/bottomNavigation.dart';
 
@@ -24,11 +25,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   AuthController controller = Get.put(AuthController());
-
-
-
-
-
 
   String headlinesHeads = 'Latest';
 
@@ -56,10 +52,18 @@ VSIT
     '''
 Get Into
 ACE
+''',
+    '''
+Get Into
+ACE
+''',
+    '''
+Get Into
+ACE
 '''
   ];
 
-  final List<String> _cardTitle = ['Upcoming Projects', 'Upcoming Hack'];
+  final List<String> _cardTitle = ['Learn GIT', 'Upcoming Hack'];
 
   final List<String> _svgString = [
     "assets/icons/.svg",
@@ -72,24 +76,20 @@ ACE
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-
       appBar: AppBar(
         toolbarHeight: 80,
         backgroundColor: Colors.black,
         elevation: 0,
         shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(bottomLeft: const Radius.circular(45)),
+          borderRadius:
+              BorderRadius.only(bottomLeft: const Radius.circular(45)),
         ),
       ),
       key: scaffolKey,
-
       drawer: _DrawerBar(),
       drawerDragStartBehavior: DragStartBehavior.start,
-      drawerEdgeDragWidth: 30,
-      body:
-
-      CustomScrollView(
-
+      drawerEdgeDragWidth: 0,
+      body: CustomScrollView(
         slivers: [
           _header(),
           _recommendation(),
@@ -154,9 +154,9 @@ ACE
             left: 28,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
-                  "Recommend",
+                  _cardTitle[0],
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 23,
@@ -167,7 +167,7 @@ ACE
                   height: 5,
                 ),
                 Text(
-                  "abc",
+                  "New Ace Hour is Live!",
                   style: TextStyle(
                     color: Color(0xFFC6C3fc),
                     fontSize: 16,
@@ -218,7 +218,7 @@ ACE
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                   "Hey, ${controller.googleSignUser.value?.displayName ?? ''}",
+                      "Hey, ${controller.googleSignUser.value?.displayName ?? ''}",
                       style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'SF Pro Display',
@@ -255,8 +255,8 @@ ACE
                       });
                     },
                     child: Container(
-                      padding:
-                          const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
                       margin: const EdgeInsets.only(
                         left: 22,
                         right: 16.0,
@@ -290,54 +290,54 @@ ACE
 
   Widget _recommendation() {
     return SliverToBoxAdapter(
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(left: 22, right: 22),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  _cardTitle[0],
-                  style: const TextStyle(
-                      color: Color(0xff515979),
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500),
-                ),
-                Text(
-                  _cardTitle[1],
-                  style: const TextStyle(
-                    color: Colors.blueAccent,
+        child: Column(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(left: 22, right: 22),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                _cardTitle[0],
+                style: const TextStyle(
+                    color: Color(0xff515979),
                     fontSize: 15,
-                    fontWeight: FontWeight.w500,
-                  ),
+                    fontWeight: FontWeight.w500),
+              ),
+              Text(
+                _cardTitle[1],
+                style: const TextStyle(
+                  color: Colors.blueAccent,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                _recommendedCards(const Color(0xff441DFC), const Color(0xff4E81EB)),
-                _recommendedCards(const Color(0xffFC67A7), const Color(0xffF6815B)),
-              ],
-            ),
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _recommendedCards(
+                  const Color(0xff441DFC), const Color(0xff4E81EB)),
+              _recommendedCards(
+                  const Color(0xffFC67A7), const Color(0xffF6815B)),
+            ],
           ),
-        ],
-      ),
-    );
+        ),
+      ],
+    ));
   }
 
   Widget _recentGrid() {
     return SliverPadding(
       padding: const EdgeInsets.only(left: 22, right: 22),
       sliver: SliverGrid(
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 18,
-          childAspectRatio: 155 / 113,
         ),
         delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
           return Container(
@@ -350,30 +350,30 @@ ACE
             ),
             child: Stack(
               children: [
-                Positioned(
+                const Positioned(
                   bottom: 0,
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
+                    borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(28),
                       bottomRight: Radius.circular(30),
                     ),
-                    child: SvgPicture.asset(
-                      'assets/pics/VectorSmallTop.svg',
-                      width: 164,
-                    ),
+                    // child: SvgPicture.asset(
+                    //   'assets/pics/VectorSmallTop.svg',
+                    //   width: 164,
+                    // ),
                   ),
                 ),
-                Positioned(
+                const Positioned(
                   bottom: 0,
                   child: ClipRRect(
-                    borderRadius: const BorderRadius.only(
+                    borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(28),
                       bottomRight: Radius.circular(30),
                     ),
-                    child: SvgPicture.asset(
-                      'assets/pics/VectorSmallBottom.svg',
-                      width: 164,
-                    ),
+                    // child: SvgPicture.asset(
+                    //   'assets/pics/VectorSmallBottom.svg',
+                    //   width: 164,
+                    // ),
                   ),
                 ),
                 Positioned(
@@ -389,11 +389,11 @@ ACE
                     ),
                   ),
                 ),
-                Positioned(
-                  left: 25,
-                  bottom: 20,
-                  child: SvgPicture.asset(_svgString[index]),
-                ),
+                // Positioned(
+                //   left: 25,
+                //   bottom: 20,
+                //   //child: SvgPicture.asset(_svgString[index]),
+                // ),
               ],
             ),
           );
@@ -401,8 +401,6 @@ ACE
       ),
     );
   }
-
-
 
   Widget _DrawerBar() {
     return Drawer(
@@ -413,23 +411,24 @@ ACE
             height: 30,
           ),
           DrawerHeader(
-            child: CircleAvatar(
-                radius: 60,
-              backgroundImage: Image.network(controller.googleSignUser.value?.photoUrl ?? '').image,
+            child: GFAvatar(
+              radius: 100,
 
-          ),
-            decoration: const BoxDecoration(
-              color: Colors.transparent,
-            ),
+              backgroundImage:   controller.googleSignUser.value != null
+            ? Image.network(
+            controller.googleSignUser.value?.photoUrl ?? '')
+                .image
+                  : AssetImage('assets/images/profileavatar.webp'),
+            )
           ),
           const SizedBox(
             height: 20,
           ),
           GestureDetector(
             onTap: () {
-              Get.to(()=> ProfileScreen());
+              Get.to(() => ProfileScreen());
             },
-            child:  Text(
+            child: Text(
               'Profile',
               style: GoogleFonts.catamaran(
                 fontSize: 18,
@@ -455,7 +454,7 @@ ACE
           const SizedBox(
             height: 45,
           ),
-           Text(
+          Text(
             'About',
             style: GoogleFonts.catamaran(
               fontSize: 18,
@@ -466,23 +465,21 @@ ACE
           const SizedBox(
             height: 45,
           ),
-        GestureDetector(
-          onTap: (){
-            controller.GoogleSignoutMethod();
-          },
-             child: Text('Log Out',
-               style: GoogleFonts.catamaran(
-                 fontSize: 18,
-                 fontWeight: FontWeight.w700,
-               ),
-               textAlign: TextAlign.center,),
+          GestureDetector(
+            onTap: () {
+              controller.GoogleSignoutMethod();
+            },
+            child: Text(
+              'Log Out',
+              style: GoogleFonts.catamaran(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
-
         ],
       ),
     );
   }
-
 }
-
-

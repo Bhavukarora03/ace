@@ -1,14 +1,22 @@
 import 'package:ace/Controller/AuthController.dart';
+import 'package:ace/Screens/Authentication/SignUp.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_button/sign_button.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:ace/Constants/Constants.dart';
 
 class AuthenticationScreen extends GetWidget<AuthController> {
   TextEditingController textEditingController = TextEditingController();
+
+  AuthController sharedController = Get.put(AuthController());
+var emailcontroller =TextEditingController();
+var passwordcontroller =TextEditingController();
+late String email;
+late String password;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +55,10 @@ class AuthenticationScreen extends GetWidget<AuthController> {
                   Padding(
                     padding: kInputDecorationPadding,
                     child: TextField(
+                      controller: emailcontroller,
                         keyboardType: TextInputType.emailAddress,
                         style: kTextFieldInput,
-                        onChanged: (value) {},
+
                         decoration: kInputDecorationmail),
                   ),
                   const SizedBox(
@@ -58,12 +67,30 @@ class AuthenticationScreen extends GetWidget<AuthController> {
                   Padding(
                     padding: kInputDecorationPadding,
                     child: TextField(
+                      controller: passwordcontroller,
                       obscureText: true,
                       style: kTextFieldInput,
-                      onChanged: (value) {},
+
                       decoration: kInputDecorationpassword,
                     ),
                   ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 150.0),
+                    child: InkWell(
+                      onTap: () {
+                        Get.to(()=> SignUpage());
+                      },
+                      child: RichText(text: TextSpan(text: "Don't have an account? ",style: TextStyle(color: Colors.grey, fontSize: 13),
+                        children: [TextSpan(text: "Sign-up",style: TextStyle(decoration: TextDecoration.underline))]
+                      )
+
+                      ),
+                    ),
+                  ),
+
                   const SizedBox(
                     height: 40,
                   ),
@@ -138,7 +165,11 @@ class AuthenticationScreen extends GetWidget<AuthController> {
                       Icons.mail,
                       color: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+
+                      controller.SignInWithEmailAndPassword(emailcontroller.text.trim() , passwordcontroller.text.trim());
+
+                    },
                     text: 'Submit',
                     shape: GFButtonShape.pills,
                     elevation: 5,
@@ -166,10 +197,18 @@ class AuthenticationScreen extends GetWidget<AuthController> {
                   const SizedBox(
                     height: 10,
                   ),
-                  SignInButton(
-                      padding: 10,
-                      buttonType: ButtonType.apple,
-                      onPressed: () {}),
+                 GFButton(onPressed: (){},
+                   size: GFSize.LARGE,
+                   icon:  const Icon(
+                     Icons.phone_iphone_rounded ,color: Colors.white,),
+                     text: 'Proceed with Mobile',
+                     shape: GFButtonShape.pills,
+                     elevation: 5,
+                     padding:
+                     EdgeInsets.symmetric(vertical: 0, horizontal: 40),
+                     color: Color(0xff001d3d),
+
+                   ),
                 ],
               )
             ],

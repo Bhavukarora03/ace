@@ -1,3 +1,4 @@
+import 'package:ace/Controller/AuthController.dart';
 import 'package:ace/Screens/Authentication/AuthenticationScreen.dart';
 import 'package:ace/Screens/HomePage/HomePageScreen.dart';
 import 'package:ace/Screens/Navigation/bottomNavigation.dart';
@@ -11,7 +12,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp().then((value) => Get.put(AuthController()));
   runApp(MyApp());
 }
 

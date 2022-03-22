@@ -62,6 +62,7 @@ flutter:
     - assets/lottie/
     - assets/lottie/splash.json
     - assets/images/acelogo.png
+    - assets/images/profileavatar.webp
 
 
 

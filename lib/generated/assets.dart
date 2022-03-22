@@ -4,6 +4,8 @@ class Assets {
 
   static const String iconsAcelogo = 'assets/icons/acelogo.svg';
   static const String imagesAcelogo = 'assets/images/acelogo.png';
+  static const String imagesAvatar = 'assets/images/avatar.png';
+  static const String imagesProfileavatar = 'assets/images/profileavatar.webp';
   static const String lottieAce = 'assets/lottie/ace.json';
   static const String lottieNews = 'assets/lottie/News.json';
   static const String lottieProfile = 'assets/lottie/profile.json';
