@@ -7,15 +7,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:pinput/pinput.dart';
 
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   var _googlesignin = GoogleSignIn();
 
   FirebaseAuth auth = FirebaseAuth.instance;
-  var  codeController = TextEditingController();
+  var codeController = TextEditingController();
 
   late Rx<User?> _user;
 
@@ -106,24 +105,31 @@ class AuthController extends GetxController {
         phoneNumber: phone,
         timeout: Duration(seconds: 60),
         verificationCompleted: (PhoneAuthCredential credential) async {
-           await auth.signInWithCredential(credential);
+       final  phoneUser =   await auth.signInWithCredential(credential);
 
-
+       if(phoneUser != null){
+         Get.to(()=> NavigationScreen());
+       }
         },
         verificationFailed: (FirebaseAuthException exception) {
-          Get.snackbar('Verification Failed', 'for some reason',snackPosition: SnackPosition.BOTTOM, messageText: Text(exception.toString()));
+          Get.snackbar('Verification Failed', 'for some reason',
+              colorText: Colors.white,
+              snackPosition: SnackPosition.TOP,
+              messageText: Text(
+                exception.toString(),
+                style: TextStyle(color: Colors.white),
+              ));
         },
-        codeSent: (String verificationID, int? code)  {
-             AuthCredential credential = PhoneAuthProvider.credential(
-                 verificationId: verificationID, smsCode: code.toString());
-             final user = auth.signInWithCredential(credential);
-             if (user != null) {
-               Get.offAll(() => NavigationScreen());
-               Get.snackbar('Logged in', 'With phone', snackPosition: SnackPosition.BOTTOM);
-             } else {
-               Get.snackbar('Couldnot verifyPhoneNumber', 'ok daddy');
-             }
-
+        codeSent: (String verificationID, int? code) {
+          AuthCredential credential = PhoneAuthProvider.credential(
+              verificationId: verificationID, smsCode: code.toString());
+          final user = auth.signInWithCredential(credential);
+          if (user != null) {
+            Get.offAll(() => NavigationScreen());
+          } else {
+            Get.snackbar('Couldnot verifyPhoneNumber', 'ok daddy',
+                snackPosition: SnackPosition.TOP, colorText: Colors.white);
+          }
         },
         codeAutoRetrievalTimeout: (String verificationID) {});
   }

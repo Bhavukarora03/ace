@@ -231,58 +231,58 @@ class AuthenticationScreen extends GetWidget<AuthController> {
                   ),
                   GFButton(
                     onPressed: () {
-                      controller.registerUserWithPhone(phoneNumber);
+                      if (phoneNumber == null) {
 
-                      Get.bottomSheet(
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Text("VERIFICATION",
-                                style: GoogleFonts.catamaran(
-                                    fontSize: 30,
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1)),
-                            Text("Enter the code to your number",
-                                style: GoogleFonts.catamaran(
-                                    fontSize: 15,
-                                    color: Colors.white,
-                                    letterSpacing: 1)),
-                            Pinput(
-                              defaultPinTheme: defaultPinTheme,
-                              focusedPinTheme: focusedPinTheme,
-                              submittedPinTheme: submittedPinTheme,
-                              length: 6,
-                              showCursor: true,
+                      } else {
+                        controller.registerUserWithPhone(phoneNumber);
 
-
-                            ),
-                            RichText(
-                                text: const TextSpan(
-                                    text: "Didn't receive code? ",
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 13),
-                                    children: [
-                                  TextSpan(
-
-                                      text: "Resend",
-                                      style: TextStyle(
-
-                                          decoration: TextDecoration.underline,
-
-                                          letterSpacing: 2,
-                                          fontWeight: FontWeight.w900))
-                                ]))
-                          ],
-                        ),
-                        backgroundColor: Colors.black,
-                        elevation: 1,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(80),
+                        Get.bottomSheet(
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Text("VERIFICATION",
+                                  style: GoogleFonts.catamaran(
+                                      fontSize: 30,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w600,
+                                      letterSpacing: 1)),
+                              Text("Enter the code to your number",
+                                  style: GoogleFonts.catamaran(
+                                      fontSize: 15,
+                                      color: Colors.white,
+                                      letterSpacing: 1)),
+                              Pinput(
+                                defaultPinTheme: defaultPinTheme,
+                                focusedPinTheme: focusedPinTheme,
+                                submittedPinTheme: submittedPinTheme,
+                                length: 6,
+                                showCursor: true,
                               ),
-                        ),
-                      );
+                              RichText(
+                                  text: const TextSpan(
+                                      text: "Didn't receive code? ",
+                                      style: TextStyle(
+                                          color: Colors.grey, fontSize: 13),
+                                      children: [
+                                    TextSpan(
+                                        text: "Resend",
+                                        style: TextStyle(
+                                            decoration:
+                                                TextDecoration.underline,
+                                            letterSpacing: 2,
+                                            fontWeight: FontWeight.w900))
+                                  ]))
+                            ],
+                          ),
+                          backgroundColor: Colors.black,
+                          elevation: 1,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(80),
+                            ),
+                          ),
+                        );
+                      }
                     },
                     size: GFSize.LARGE,
                     icon: const Icon(

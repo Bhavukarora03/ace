@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:getwidget/components/carousel/gf_carousel.dart';
-import 'package:lottie/lottie.dart';
+import 'package:ace/Constants/Constants.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../CustomAppBar/CustomAppBar.dart';
+import '../Modals/Items.dart';
+import 'Widgets/item_list.dart';
+import 'Widgets/shop_info.dart';
+import 'Widgets/shop_lis_view.dart';
 
 class ShopMerch extends StatefulWidget {
   const ShopMerch({Key? key}) : super(key: key);
@@ -10,63 +15,86 @@ class ShopMerch extends StatefulWidget {
 }
 
 class _ShopMerchState extends State<ShopMerch> {
-
-
-  final List<String> imageList = [
-    "https://cdn.pixabay.com/photo/2017/12/03/18/04/christmas-balls-2995437_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2017/12/13/00/23/christmas-3015776_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/19/10/55/christmas-market-4705877_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/20/00/03/road-4707345_960_720.jpg",
-    "https://cdn.pixabay.com/photo/2019/12/22/04/18/x-mas-4711785__340.jpg",
-    "https://cdn.pixabay.com/photo/2016/11/22/07/09/spruce-1848543__340.jpg"
-  ];
-
+  var selected = 0;
+  final pageController = PageController();
+  final restaurant = Restaurant.generateRestaurant();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-
-        title: Text('Shop ACE'),
-        toolbarHeight: 70,
+      appBar:   AppBar(
+        automaticallyImplyLeading: false,
+        toolbarHeight: 50,
+        elevation: 5,
         backgroundColor: Colors.black,
-        elevation: 0,
-        leading: Icon(Icons.shopping_cart,color: Colors.grey,size: 30,),
+
       ),
+      backgroundColor: kBackground,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
 
-
-        body: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            GFCarousel(
-              items: imageList.map(
-                (url) {
-                  return Stack(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.all(20.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                          child: Image.network(url,
-                              fit: BoxFit.cover, width: 1000.0),
-                        ),
-                      ),
-                    ],
-                  );
+          RestaurantInfo(),
+          FoodList(
+            selected: selected,
+            restaurant: restaurant,
+            callback: (int index) {
+              setState(() {
+                selected = index;
+              });
+              pageController.jumpToPage(index);
+            },
+          ),
+          Expanded(
+              child: FoodListView(
+                selected: selected,
+                callback: (int index) {
+                  setState(() {
+                    selected = index;
+                  });
                 },
-              ).toList(),
-              onPageChanged: (index) {
-                setState(() {
-                  index;
-                });
-              },
-            )
-          ],
+                pageController: pageController,
+                restaurant: restaurant,
+              )),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            height: 60,
+            child: SmoothPageIndicator(
+              controller: pageController,
+              count: restaurant.menu.length,
+              effect: CustomizableEffect(
+                dotDecoration: DotDecoration(
+                  width: 8,
+                  height: 8,
+                  color: Colors.grey.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                activeDotDecoration: DotDecoration(
+                  width: 10,
+                  height: 10,
+                  color: kBackground,
+                  borderRadius: BorderRadius.circular(10),
+                  dotBorder: DotBorder(
+                    color: kPrimaryColor,
+                    padding: 2,
+                    width: 2,
+                  ),
+                ),
+              ),
+              onDotClicked: (index) => pageController.jumpToPage(index),
+            ),
+          )
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        elevation: 2,
+        backgroundColor: kPrimaryColor,
+        child: Icon(
+          Icons.shopping_bag_outlined,
+          color: Colors.white,
+          size: 30,
         ),
-      ],
-    ));
+      ),
+    );
   }
 }

@@ -12,7 +12,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp().then((value) => Get.put(AuthController()));
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -29,12 +29,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light().copyWith(
         dividerColor: Colors.grey,
       ),
-      initialRoute: '/splashscreen',
+      initialRoute: '/',
       getPages: [
-        GetPage(name: '/splashscreen' ,page: () =>  SplashScreen()),
+        GetPage(name: '/' ,page: () =>  SplashScreen()),
+        GetPage(name: '/Home', page: () => Home()),
         GetPage(name: '/authenticationScreen', page: ()=> AuthenticationScreen()),
         //GetPage(name: '/MainScreen', page: ()=> NavigationScreen())
-        GetPage(name: '/Home', page: () => Home()),
+
+
 
       ],
     );

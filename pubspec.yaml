@@ -39,6 +39,7 @@ dependencies:
   http: ^0.13.4
   sign_in_with_apple: ^3.3.0
   pinput: ^2.2.4
+  smooth_page_indicator: ^1.0.0+2
 
 dev_dependencies:
   flutter_test:
@@ -63,7 +64,14 @@ flutter:
     - assets/lottie/
     - assets/lottie/splash.json
     - assets/images/acelogo.png
-    - assets/images/profileavatar.webp
+    - assets/images/dish1.png
+    - assets/images/dish2.png
+    - assets/images/dish3.png
+    - assets/images/dish4.png
+    - assets/images/ingre1.png
+    - assets/images/ingre2.png
+    - assets/images/ingre3.png
+    - assets/images/ingre4.png
 
 
 
