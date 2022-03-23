@@ -18,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
          children: [
 
-           Container(child: Text('COMING SOON', style: GoogleFonts.catamaran(fontSize: 20, fontWeight: FontWeight.w900),)),
+
            Container(
 
 

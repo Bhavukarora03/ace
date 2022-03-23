@@ -1,8 +1,11 @@
 
+import 'package:ace/Controller/AuthController.dart';
 import 'package:ace/Screens/HomePage/HomePageScreen.dart';
 import 'package:ace/Screens/News/News.dart';
 import 'package:ace/Screens/Shop/Shop.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../Profile/ProfileScreen.dart';
@@ -10,12 +13,18 @@ import '../Profile/ProfileScreen.dart';
 
 class NavigationScreen extends StatefulWidget {
 
+
   @override
   State<NavigationScreen> createState() => _NavigationScreenState();
 }
 
 class _NavigationScreenState extends State<NavigationScreen> {
+
+
+  late  String emailUser;
+  AuthController controller = Get.put(AuthController());
   final Screens = [HomePage(), NewsView(), ShopMerch(), ProfileScreen()];
+
   var _currentIndex = 0;
   @override
   Widget build(BuildContext context) {

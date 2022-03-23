@@ -17,7 +17,12 @@ import '../Navigation/bottomNavigation.dart';
 GlobalKey<ScaffoldState> scaffolKey = GlobalKey<ScaffoldState>();
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+
+
+
+
+
+
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -26,7 +31,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   AuthController controller = Get.put(AuthController());
 
+
   String headlinesHeads = 'Latest';
+
 
   static const _headlines = <String>[
     "Latest",
@@ -82,7 +89,7 @@ ACE
         elevation: 0,
         shape: const RoundedRectangleBorder(
           borderRadius:
-              BorderRadius.only(bottomLeft: const Radius.circular(45)),
+              BorderRadius.only(bottomLeft:  Radius.circular(45)),
         ),
       ),
       key: scaffolKey,
@@ -218,7 +225,8 @@ ACE
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Hey, ${controller.googleSignUser.value?.displayName ?? ''}",
+            "Hey, ${controller.googleSignUser.value?.displayName ?? ''}",
+
                       style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'SF Pro Display',
@@ -483,3 +491,4 @@ ACE
     );
   }
 }
+//
