@@ -1,0 +1,214 @@
+{
+ "Card": [
+  {
+   "images": "https://i.imgur.com/FWaqzPL.png",
+   "tools": "Django, Python, HTML/CSS/JS, Jquery",
+   "title": "ACE CHAT BOT",
+   "content": "It is an interactive chat bot developed by our core team to handle queries related to functioning of the society. Initially it was trained on whatsapp group chat history and later focus was shifted transform into an expert system. It uses Edit Distance Algorithm for fast retrieval of accurate response based on user’s query sentence.",
+   "Madeby": "Developed by Ashish Pahwa| Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/cy0Q22J.png",
+   "tools": "Go, Socket, HTML/CSS/JS",
+   "title": "MINI CLIENT CHAT",
+   "content": "It is a simple, real-time end to end encrypted web chat application optimized for having confidential conversations. URL : https://miniclientchat.azurewebsites.net",
+   "Madeby": "Developed by Gaurav Gogia| Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/mXw9n5j.png",
+   "tools": "PHP, HTML/CSS/JS, JQuery",
+   "title": "VIPS LOST AND FOUND",
+   "content": "It is a lost and found Portal for students of VIPS. Students cIt is a lost and found Portal for students of VIPS. Students can report information about any item that they’ve lost in the VIPS campus or if they found someone’s lost item. URL : http://vipslostfound.esy.es/an report information about",
+   "Madeby": "Developed by Srijit S Madhavan| Aditya Dhawan|"
+  },
+  {
+   "images": "https://i.imgur.com/UVEnk0E.png",
+   "tools": "Django, Python, HTML/CSS/JS, Jquery",
+   "title": "DOWNLOAD ANY SONG",
+   "content": "A multiplatform application with best in class UX to download almost any song just by entering the name of the song followed by artist name.The user can listen to the 30 sec preview of the song. On pressing the “Download Now” button, the .mp3 file starts downloading. DownloadAnySong was featured by popular social media pages. It is the most famous and successful ACE project. URL : https://www.downloadanysong.com",
+   "Madeby": "Developed by Sameer Kumar| Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/iWa1jhC.png",
+   "tools": "Django, Python, HTML/CSS/JS, Jquery",
+   "title": "CSI - SSC VIPS 2017",
+   "content": "This web application was developed by our core team to manage and control registration processes and information for State Students’ Convention 2017 sponsored by Computer Society of India. The application also featured automatic report generation and event summarization system using the data generated about the participants. We hosted it on our dedicated server in Mumbai region.",
+   "Madeby": "Developed by Ashish Pahwa| Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/CGDuTPh.png",
+   "tools": "Android, Java",
+   "title": "BALANCE LITE",
+   "content": "An android game in which the user tries to balance a bar and avoid obstacles. Developed by Sanil Khurana URL : https://play.google.com/store/apps/details?id=com.sanilk.balance_lite",
+   "Madeby": "Developed by Sanil Khurana|"
+  },
+  {
+   "images": "https://i.imgur.com/a9V0P6K.png",
+   "tools": "Django, Python, HTML/CSS/JS, Jquery",
+   "title": "MATRIX - A Segment Analysis and Visualization Toolkit",
+   "content": "Market segmentation is one of the most fundamental strategic marketing concepts. Grouping people (with the willingness, purchasing power, and the authority to buy) according to their similarity in several dimensions related to a product under consideration. This application performs user behavior analysis based on click patterns and cluster the similar users together using Kmode clustering algorithm. It also provides visual information about the geographical distribution of users and comparison of products performance in digital marketplace in terms of number of clicks.",
+   "Madeby": "Developed by Ashish Pahwa| Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/N7SbWc7.png",
+   "tools": "Flask, Python, RestAPI",
+   "title": "AZTRO API",
+   "content": "aztro is a REST API made in Python that provides you with daily horoscope (today, tomorrow and yesterday). It provides horoscope info for sun signs such as Lucky Number, Lucky Color, Mood, Color, Compatibility with other sun signs, description of a sign for that day etc. Documentation was also written for this API. URL : https://aztro.readthedocs.io",
+   "Madeby": "Developed by Sameer Kumar|"
+  },
+  {
+   "images": "https://i.imgur.com/UcfDVCe.png",
+   "tools": "PHP, Mysql, HTML/CSS/JS, Bootstrap",
+   "title": "AMBEU",
+   "content": "A smart progressive web app(PWA) to book ambulance in emergenA smart progressive web app(PWA) to book ambulance in emergency cases. It tracks daily health condition of the user. It can also call ambulance when the health of the user get serious.cy cases. It tracks daily",
+   "Madeby": "Developed by Srijit S Madhavan| Sameer Kumar| Shreyans Jain|"
+  },
+  {
+   "images": "https://i.imgur.com/zpBWVXw.png",
+   "tools": "Flask, Python, HTML/CSS/JS, Jquery",
+   "title": "FLOOD SAYAT",
+   "content": "Sayat.me is Anonymous Feedback Tool. FloodSayat.me allows you to flood users with N number of feedbacks. URL : http://www.floodsayat.com/",
+   "Madeby": "Developed by Sameer Kumar| Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/7WmzIAT.png",
+   "tools": "C#, XAML",
+   "title": "HEALTHIFY",
+   "content": "A smart Universal WindowsA smart Universal Windows Platform (UWP) application for Doctors, Clinics, Hospitals and Patients. Sharing information on a central database(encrypted), while maintaining Patient-Doctor confidentiality.",
+   "Madeby": "Developed by Gaurav Gogia|"
+  },
+  {
+   "images": "https://i.imgur.com/nWVurnn.png",
+   "tools": "HTML/CSS/JS, Jquery, Semantic-UI",
+   "title": "VIPS ECELL",
+   "content": "A full fledged static website for Entrepreneur Development Cell of VIPS active each individual member is in the society. The project was open sourced in December 2016 under MIT Open Source license. URL : http://ecellvips.ml/",
+   "Madeby": "Developed by Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/zsmgfB5.png",
+   "tools": "Django, Python, HTML/CSS/JS, Jquery",
+   "title": "FUZE",
+   "content": "It is an interest based dating web app developed by our core team for learning purpose. It uses the combination of Jaccard Similarity and Pearson Correlation Score to compute the best match based on interest set of an individual.",
+   "Madeby": "Developed by Ashish Pahwa| Srijit S Madhavan| Sameer Kumar| Aditya Dhawan|"
+  },
+  {
+   "images": "https://i.imgur.com/4I7PZZA.png",
+   "tools": "Arduino, ReactJS, Python, Django, HTML/CSS",
+   "title": "GARBAGE OVERFLOW",
+   "content": "\"Garbage Overflow\" is about an automated waste management system with the help of IoT, sensors, Web API etc made at a 24 hour hackathon.It is a platform where authorities can maintain multiple garbage bins from one single app(PWA) through notifications/buzzer alarm whenever the bin's garbage collection level crosses a certain level. Also, the device measures moisture level and temperature level inside the bin. URL : http://www.hackathon.io/85817",
+   "Madeby": "Developed by Sameer Kumar| Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/4I7PZZA.png",
+   "tools": "Flask, Python, HTML/CSS/JS, Jquery, Bootstrap",
+   "title": "IPU SEARCH",
+   "content": "IP University Result Search Engine. It is a dynamic website in which a student can find his/her result instantly anytime without having to download the large pdf file from the official website.The website also tells every student their university rank and top 25 university scorers. URL : https://ipusearch.herokuapp.com",
+   "Madeby": "Developed by Sameer Kumar|"
+  },
+  {
+   "images": "https://i.imgur.com/J3KDAl4.png",
+   "tools": "HTML/CSS/JS, Jquery, Semantic-UI",
+   "title": "LOVEDOCINE",
+   "content": "This static website was developed as a part of the challenge in NSIT’s Delhi Entrepreneurship Challenge. The purpose was to sell a hypothetical anti-friendzone pills online. URL : http://lovedoine.ml/",
+   "Madeby": "Developed by Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/0HHX0Ka.png",
+   "tools": "Django, NodeJS, Express, HTML/CSS/JS, Bootstrap",
+   "title": "Bidgen",
+   "content": "The click fraud operation generates $3 to $5 million in fraudulent revenue every day. Marketers have lost around $7.2 billion to digital ad fraud in 2016. In fact, businesses lost $16.4 billion to ad fraud in the year 2017 alone. The project detects and eliminate malicious activities and characters from the digital marketing ecosystem to protect your brand and save you lots of money. The platform currently offers Geo-monitoring across all major search engines: - Detection of competitor and affiliate advertisment. - Custom Worldwide geo-targeted monitoring - Custom CronTab Schedule for every keyword - Hourly Reports",
+   "Madeby": "Developed by Ashish Pahwa| Srijit S Madhavan| Aditya Dhawan|"
+  },
+  {
+   "images": "https://i.imgur.com/CeO7OIr.png",
+   "tools": "Android, XML, Java",
+   "title": "Gmail UI",
+   "content": "This project was made as a part of Udacity challenge in Android development Scholarship.",
+   "Madeby": "Developed by Manik Gupta| Mohak Gupta|"
+  },
+  {
+   "images": "https://i.imgur.com/c5vNrzr.png",
+   "tools": "Android, XML, Java",
+   "title": "BestCafes",
+   "content": "This project was made as a part of Bob The Builder-App Development Challenge at CPJ College Narela. In this project Firebase is used as a backend, The main idea of this project was to show top 10 cafes or restaurants in 10 states of India. Following details were shown about a particular cafe or restaurant: - • Cafe Name • Cafe Image • Cafe Description • Cafe Location • Cafe Cost",
+   "Madeby": "Developed by Manik Gupta| Mohak Gupta|"
+  },
+  {
+   "images": "https://i.imgur.com/wJ4KJoK.png",
+   "tools": "Android, XML, Java",
+   "title": "Data structures quiz",
+   "content": "In this application the users are asked 51 multiple choice questions per round related to Data Structure. So, keep playing with the quiz and strengthen your concepts of Data structures.",
+   "Madeby": "Developed by Manik Gupta| Mohak Gupta|"
+  },
+  {
+   "images": "https://i.imgur.com/LaSg9vq.png",
+   "tools": "Python, Tensorflow, Android, Java",
+   "title": "Dig-Draw",
+   "content": "This project demonstrates how to use TensorFlow Mobile on Android for handwritten digits classification from MNIST Database (Modified National Institute of Standards and Technology Database).",
+   "Madeby": "Developed by Prateek Batra|"
+  },
+  {
+   "images": "https://i.imgur.com/BDIB0DP.png",
+   "tools": "Django, Python, HTML/CSS/JS, PWA",
+   "title": "Market-X Project",
+   "content": "Today Indian offline market is a black box.Purchasing habits of consumers cannot be tracked the same way as in case of online ecommerce stores. It understands demographics of population showing interest in various products in offline outlets and retail stores.",
+   "Madeby": "Developed by Ashish Pahwa| Srijit S Madhavan| Sameer Kumar| Khushi Jain|"
+  },
+  {
+   "images": "https://i.imgur.com/4aXXrWu.png",
+   "tools": "ReactJS, NodeJS, HTML/JS/CSS",
+   "title": "WatchAnyShow - Idea Taking Shape",
+   "content": "The project allows to watch and download any show online with good UX/UI and without any advertisements or popups",
+   "Madeby": "Developed by Chirag Jain| Sahil Kr Singh| Prateek Batra| Shreyans Jain| Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/uB22S3O.png",
+   "tools": "PHP, Mysql, HTML/CSS/JS, Bootstrap",
+   "title": "Keepen",
+   "content": "The project capture what’s on your mind and you can add notes, lists and photos to Keepen, when and where ever you need it.",
+   "Madeby": "Developed by Srijit S Madhavan|"
+  },
+  {
+   "images": "https://i.imgur.com/Ba2plq9.png",
+   "tools": "PHP, HTML/CSS/JS, JQuery",
+   "title": "Pokemon Reborn",
+   "content": "A Pokemon Reborn is a web app game which allows user to conduct battle between two pokemons with multiple users",
+   "Madeby": "Developed by Chirag Jain|"
+  },
+  {
+   "images": "https://i.imgur.com/40tzUym.png",
+   "tools": "Tensorflow, Firebase, Android, Java",
+   "title": "ML KitE",
+   "content": "It is an android app which retrives detailed text from any objects with help of camera",
+   "Madeby": "Developed by Prateek Batra|"
+  },
+  {
+   "images": "https://i.imgur.com/Ap1CHsc.png",
+   "tools": "ReactJS, PHP, HTML/JS/CSS",
+   "title": "NSC Quiz App",
+   "content": "NSC Quiz App is the web application made with technologies like ReactJS, PhP and MySQL. It allows contestant to take preliminary round quiz in NSC - 2018.",
+   "Madeby": "Developed by Chirag Jain| Sahil Kr Singh| Shreyans Jain|"
+  },
+  {
+   "images": "https://i.imgur.com/UnWn5Wk.png",
+   "tools": "Django, Python, HTML/CSS/JS, PWA",
+   "title": "HealthViz",
+   "content": "HealthViz is a disease spread visualization and analytical platform where we can track the spreading diseases in real-time and to control the disease at its earliest. It provides health benefits to patients. Government can use it in policy research and to understand dynamics of disease spread and factors causing it.",
+   "Madeby": "Developed by Ashish Pahwa| Srijit S Madhavan| Aayush Gupta| Sahil Kr Singh|"
+  },
+  {
+   "images": "https://i.imgur.com/1fiRE7T.png",
+   "tools": "Prototype with Adobe XD",
+   "title": "Classroom",
+   "content": "Idea and prototype of android application that can be used by college students to study online by recording the lectures.",
+   "Madeby": "Developed by Sahil Kr Singh|"
+  },
+  {
+   "images": "https://i.imgur.com/IEsQMY1.png",
+   "tools": "Java",
+   "title": "Live edge detection",
+   "content": "A platform which helps to detects the edges of an object from the live feed.",
+   "Madeby": "Developed by Diksha|"
+  },
+ ]
+}

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ace/Constants/Constants.dart';
 
 import '../../Modals/Items.dart';
+import '../../ShopDetails/detail.dart';
 
 class FoodListView extends StatelessWidget {
   final int? selected;
@@ -30,6 +31,13 @@ class FoodListView extends StatelessWidget {
             padding: EdgeInsets.zero,
             itemBuilder: (context, index) => GestureDetector(
               onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailPage(
+                          food: restaurant!
+                              .menu[category[selected!]]![index],
+                        )));
 
               },
               child: FoodItem(

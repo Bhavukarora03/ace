@@ -13,7 +13,7 @@ class FoodDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(25),
+        padding: EdgeInsets.all(15),
         color: kBackground,
         child: Column(
           children: [

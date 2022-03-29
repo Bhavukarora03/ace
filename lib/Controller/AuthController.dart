@@ -43,7 +43,7 @@ class AuthController extends GetxController {
     if (user == null) {
       return Get.to(() => AuthenticationScreen());
     } else {
-      Get.offAll((() => NavigationScreen()));
+      Get.offAll((() => LiquidTabBar()));
     }
   }
 
@@ -53,7 +53,7 @@ class AuthController extends GetxController {
     if (googleSignUser.value == null) {
       Get.to(() => AuthenticationScreen());
     } else {
-      Get.to(() => NavigationScreen());
+      Get.to(() => LiquidTabBar());
     }
   }
 
@@ -61,7 +61,7 @@ class AuthController extends GetxController {
     googleSignUser.value = await _googlesignin.signOut();
 
     if (googleSignUser.value == true) {
-      Get.to(() => NavigationScreen());
+      Get.to(() => LiquidTabBar());
     } else {
       Get.offAll(() => AuthenticationScreen());
     }
@@ -74,7 +74,7 @@ class AuthController extends GetxController {
     } catch (firebaseException) {
       Get.snackbar('Ugh!', 'Wrong Info',
           snackPosition: SnackPosition.BOTTOM,
-          messageText: Text(
+          messageText: const Text(
             "Enter The Email and Password",
             style: TextStyle(color: Colors.white),
           ),
@@ -90,7 +90,7 @@ class AuthController extends GetxController {
     } catch (firebaseException) {
       Get.snackbar('Wrong Login Info Buddy', 'Wrong Info',
           snackPosition: SnackPosition.BOTTOM,
-          messageText: Text(
+          messageText: const Text(
             "Enter The Email and Password",
             style: TextStyle(color: Colors.white),
           ),
@@ -103,12 +103,12 @@ class AuthController extends GetxController {
   registerUserWithPhone(String phone) async {
     auth.verifyPhoneNumber(
         phoneNumber: phone,
-        timeout: Duration(seconds: 60),
+        timeout: const Duration(seconds: 60),
         verificationCompleted: (PhoneAuthCredential credential) async {
        final  phoneUser =   await auth.signInWithCredential(credential);
 
        if(phoneUser != null){
-         Get.to(()=> NavigationScreen());
+         Get.to(()=> LiquidTabBar());
        }
         },
         verificationFailed: (FirebaseAuthException exception) {
@@ -117,7 +117,7 @@ class AuthController extends GetxController {
               snackPosition: SnackPosition.TOP,
               messageText: Text(
                 exception.toString(),
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(color: Colors.white),
               ));
         },
         codeSent: (String verificationID, int? code) {
@@ -125,7 +125,7 @@ class AuthController extends GetxController {
               verificationId: verificationID, smsCode: code.toString());
           final user = auth.signInWithCredential(credential);
           if (user != null) {
-            Get.offAll(() => NavigationScreen());
+            Get.offAll(() => LiquidTabBar());
           } else {
             Get.snackbar('Couldnot verifyPhoneNumber', 'ok daddy',
                 snackPosition: SnackPosition.TOP, colorText: Colors.white);

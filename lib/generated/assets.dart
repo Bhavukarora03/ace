@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String assetsAceScrapedlol = 'assets/AceScrapedlol.json';
   static const String iconsAcelogo = 'assets/icons/acelogo.svg';
   static const String imagesAcelogo = 'assets/images/acelogo.png';
   static const String imagesAvatar = 'assets/images/avatar.png';
@@ -20,5 +21,6 @@ class Assets {
   static const String lottieProfile = 'assets/lottie/profile.json';
   static const String lottieShop = 'assets/lottie/Shop.json';
   static const String lottieSplash = 'assets/lottie/splash.json';
+  static const String videosACEHack = 'assets/videos/ACE_hack.mp4';
 
 }

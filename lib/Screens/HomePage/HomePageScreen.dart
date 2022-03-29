@@ -1,39 +1,53 @@
 import 'package:ace/Controller/AuthController.dart';
-import 'package:ace/Screens/News/News.dart';
+
 import 'package:ace/Screens/Profile/ProfileScreen.dart';
-import 'package:ace/Screens/Shop/Shop.dart';
+import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:chewie/chewie.dart';
+import 'package:shrink_sidemenu/shrink_sidemenu.dart';
+import 'package:video_player/video_player.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
-import 'package:getwidget/components/intro_screen/gf_intro_screen_bottom_navigation_bar.dart';
-import 'package:getwidget/shape/gf_avatar_shape.dart';
+
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ace/Screens/Navigation/bottomNavigation.dart';
 
 import '../Navigation/bottomNavigation.dart';
 
-GlobalKey<ScaffoldState> scaffolKey = GlobalKey<ScaffoldState>();
+final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
+final GlobalKey<SideMenuState> _endSideMenuKey = GlobalKey<SideMenuState>();
 
 class HomePage extends StatefulWidget {
-
-
-
-
-
-
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  late final VideoPlayerController videoPlayerController;
+
+  @override
+  void initState() {
+    videoPlayerController =
+        VideoPlayerController.asset('assets/videos/ACE_hack.mp4')
+          ..addListener(() {
+            setState(() {});
+          })
+          ..setLooping(true)
+          ..initialize().then((_) => videoPlayerController);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    videoPlayerController.dispose();
+  }
+
   AuthController controller = Get.put(AuthController());
 
-
   String headlinesHeads = 'Latest';
-
 
   static const _headlines = <String>[
     "Latest",
@@ -43,6 +57,8 @@ class _HomePageState extends State<HomePage> {
     "apple",
     "Flutter Jobs"
   ];
+  int _counter = 0;
+  bool isOpened = false;
   final List<String> _title = [
     '''
 Upcoming
@@ -70,6 +86,24 @@ ACE
 '''
   ];
 
+  toggleMenu([bool end = false]) {
+    if (end) {
+      final _state = _endSideMenuKey.currentState!;
+      if (_state.isOpened) {
+        _state.closeSideMenu();
+      } else {
+        _state.openSideMenu();
+      }
+    } else {
+      final _state = _sideMenuKey.currentState!;
+      if (_state.isOpened) {
+        _state.closeSideMenu();
+      } else {
+        _state.openSideMenu();
+      }
+    }
+  }
+
   final List<String> _cardTitle = ['Learn GIT', 'Upcoming Hack'];
 
   final List<String> _svgString = [
@@ -81,39 +115,97 @@ ACE
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        toolbarHeight: 80,
-        backgroundColor: Colors.black,
-        elevation: 0,
-        shape: const RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.only(bottomLeft:  Radius.circular(45)),
+    return SideMenu(
+        key: _endSideMenuKey,
+        type: SideMenuType.slideNRotate,
+        menu: Padding(
+          padding: const EdgeInsets.only(left: 25.0),
+          child: buildMenu(),
         ),
-      ),
-      key: scaffolKey,
-      drawer: _DrawerBar(),
-      drawerDragStartBehavior: DragStartBehavior.start,
-      drawerEdgeDragWidth: 0,
-      body: CustomScrollView(
-        slivers: [
-          _header(),
-          _recommendation(),
-          SliverToBoxAdapter(
-            child: Container(
-              margin: const EdgeInsets.only(bottom: 16, left: 22),
-              child: const Text(
-                "Recent",
-                style: TextStyle(
-                  color: Color(0xff515979),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w500,
+        onChange: (_isOpened) {
+          setState(() => isOpened = _isOpened);
+        },
+        child: SideMenu(
+            key: _sideMenuKey,
+            menu: buildMenu(),
+            type: SideMenuType.slideNRotate,
+            onChange: (_isOpened) {
+              setState(() => isOpened = _isOpened);
+            },
+            child: IgnorePointer(
+              ignoring: isOpened,
+              child: Scaffold(
+                resizeToAvoidBottomInset: false,
+                appBar: AppBar(
+                  leading: IconButton(
+                      onPressed: () => toggleMenu(true),
+                      icon: Icon(Icons.menu)),
+                  toolbarHeight: 80,
+                  backgroundColor: Colors.black,
+                  elevation: 0,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.only(bottomLeft: Radius.circular(45)),
+                  ),
+                ),
+
+
+                body: CustomScrollView(
+                  slivers: [
+                    _header(),
+                    _videoCard(),
+                    _recommendation(),
+                    SliverToBoxAdapter(
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 16, left: 22),
+                        child: const Text(
+                          "Recent",
+                          style: TextStyle(
+                            color: Color(0xff515979),
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                    _recentGrid(),
+                  ],
                 ),
               ),
-            ),
-          ),
-          _recentGrid(),
+            )));
+  }
+
+  Widget _videoCard() {
+    return SliverToBoxAdapter(
+      child: Column(
+        children: [
+          videoPlayerController != null
+              ? GestureDetector(
+                  dragStartBehavior: DragStartBehavior.start,
+                  onTap: () {
+                    setState(() {
+                      videoPlayerController.value.isPlaying
+                          ? videoPlayerController.pause()
+                          : videoPlayerController.play();
+                    });
+                  },
+                  child: Container(
+                    height: 250,
+                    width: 600,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(30),
+                      ),
+                    ),
+                    margin:
+                        const EdgeInsets.only(left: 22, right: 22, bottom: 22),
+                    child: AspectRatio(
+                      aspectRatio: videoPlayerController.value.aspectRatio,
+                      child: VideoPlayer(videoPlayerController),
+                    ),
+                  ),
+                )
+              : CircularProgressIndicator()
         ],
       ),
     );
@@ -123,7 +215,7 @@ ACE
     return Container(
       height: 185,
       width: 339,
-      margin: const EdgeInsets.only(left: 16, bottom: 25, top: 19),
+      margin: const EdgeInsets.only(left: 22, bottom: 25, top: 22),
       decoration: const BoxDecoration(
         color: Colors.black87,
         borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -137,10 +229,10 @@ ACE
                 bottomLeft: Radius.circular(26),
                 bottomRight: Radius.circular(26),
               ),
-              child: SvgPicture.asset(
-                'assets/pics/Vector.svg',
-                width: 339,
-              ),
+              // child: SvgPicture.asset(
+              //   'assets/pics/Vector.svg',
+              //   width: 339,
+              // ),
             ),
           ),
           Positioned(
@@ -225,8 +317,7 @@ ACE
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-            "Hey, ${controller.googleSignUser.value?.displayName ?? ''}",
-
+                      "Hey, ${controller.googleSignUser.value?.displayName ?? ''}",
                       style: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'SF Pro Display',
@@ -378,6 +469,7 @@ ACE
                       bottomLeft: Radius.circular(28),
                       bottomRight: Radius.circular(30),
                     ),
+
                     // child: SvgPicture.asset(
                     //   'assets/pics/VectorSmallBottom.svg',
                     //   width: 164,
@@ -410,85 +502,171 @@ ACE
     );
   }
 
-  Widget _DrawerBar() {
-    return Drawer(
-      elevation: 0,
+  Widget buildMenu() {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.symmetric(vertical: 50.0),
       child: Column(
-        children: <Widget>[
-          const SizedBox(
-            height: 30,
-          ),
-          DrawerHeader(
-            child: GFAvatar(
-              radius: 100,
-
-              backgroundImage:   controller.googleSignUser.value != null
-            ? Image.network(
-            controller.googleSignUser.value?.photoUrl ?? '')
-                .image
-                  : AssetImage('assets/images/profileavatar.webp'),
-            )
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          GestureDetector(
-            onTap: () {
-              Get.to(() => ProfileScreen());
-            },
-            child: Text(
-              'Profile',
-              style: GoogleFonts.catamaran(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GFAvatar(
+                  radius: 40,
+                  backgroundImage: controller.googleSignUser.value != null
+                      ? Image.network(
+                              controller.googleSignUser.value?.photoUrl ?? '')
+                          .image
+                      : AssetImage('assets/images/profileavatar.webp'),
+                ),
+                SizedBox(height: 16.0),
+                Text(
+                  "Hello, Bhavuk",
+                  style: TextStyle(color: Colors.white),
+                ),
+                SizedBox(height: 20.0),
+              ],
             ),
           ),
-          const SizedBox(
-            height: 45,
-          ),
-          GestureDetector(
+          ListTile(
             onTap: () {},
-            child: Text(
-              'Settings',
-              style: GoogleFonts.catamaran(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.center,
-            ),
+            leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
+            title: const Text("Home"),
+            textColor: Colors.white,
+            dense: true,
           ),
-          const SizedBox(
-            height: 45,
+          ListTile(
+            onTap: () {},
+            leading: const Icon(Icons.verified_user,
+                size: 20.0, color: Colors.white),
+            title: const Text("Profile"),
+            textColor: Colors.white,
+            dense: true,
+
+            // padding: EdgeInsets.zero,
           ),
-          Text(
-            'About',
-            style: GoogleFonts.catamaran(
-              fontSize: 18,
-              fontWeight: FontWeight.w700,
-            ),
-            textAlign: TextAlign.center,
+          ListTile(
+            onTap: () {},
+            leading: const Icon(Icons.monetization_on,
+                size: 20.0, color: Colors.white),
+            title: const Text("Wallet"),
+            textColor: Colors.white,
+            dense: true,
+
+            // padding: EdgeInsets.zero,
           ),
-          const SizedBox(
-            height: 45,
+          ListTile(
+            onTap: () {},
+            leading: const Icon(Icons.shopping_cart,
+                size: 20.0, color: Colors.white),
+            title: const Text("Cart"),
+            textColor: Colors.white,
+            dense: true,
+
+            // padding: EdgeInsets.zero,
           ),
-          GestureDetector(
-            onTap: () {
-              controller.GoogleSignoutMethod();
-            },
-            child: Text(
-              'Log Out',
-              style: GoogleFonts.catamaran(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-              textAlign: TextAlign.center,
-            ),
+          ListTile(
+            onTap: () {},
+            leading:
+                const Icon(Icons.star_border, size: 20.0, color: Colors.white),
+            title: const Text("Favorites"),
+            textColor: Colors.white,
+            dense: true,
+
+            // padding: EdgeInsets.zero,
+          ),
+          ListTile(
+            onTap: () {},
+            leading:
+                const Icon(Icons.settings, size: 20.0, color: Colors.white),
+            title: const Text("Settings"),
+            textColor: Colors.white,
+            dense: true,
+
+            // padding: EdgeInsets.zero,
           ),
         ],
       ),
     );
   }
 }
-//
+// Widget _draweritems(){
+//   return Drawer(
+//     elevation: 0,
+//     child: Column(
+//       children: <Widget>[
+//         const SizedBox(
+//           height: 30,
+//         ),
+//         DrawerHeader(
+//             child: GFAvatar(
+//           radius: 100,
+//           backgroundImage: controller.googleSignUser.value != null
+//               ? Image.network(controller.googleSignUser.value?.photoUrl ?? '')
+//                   .image
+//               : AssetImage('assets/images/profileavatar.webp'),
+//         )),
+//         const SizedBox(
+//           height: 20,
+//         ),
+//         GestureDetector(
+//           onTap: () {
+//             Get.to(() => ProfileScreen());
+//           },
+//           child: Text(
+//             'Profile',
+//             style: GoogleFonts.catamaran(
+//               fontSize: 18,
+//               fontWeight: FontWeight.w700,
+//             ),
+//             textAlign: TextAlign.center,
+//           ),
+//         ),
+//         const SizedBox(
+//           height: 45,
+//         ),
+//         GestureDetector(
+//           onTap: () {},
+//           child: Text(
+//             'Settings',
+//             style: GoogleFonts.catamaran(
+//               fontSize: 18,
+//               fontWeight: FontWeight.w700,
+//             ),
+//             textAlign: TextAlign.center,
+//           ),
+//         ),
+//         const SizedBox(
+//           height: 45,
+//         ),
+//         Text(
+//           'About',
+//           style: GoogleFonts.catamaran(
+//             fontSize: 18,
+//             fontWeight: FontWeight.w700,
+//           ),
+//           textAlign: TextAlign.center,
+//         ),
+//         const SizedBox(
+//           height: 45,
+//         ),
+//         GestureDetector(
+//           onTap: () {
+//             controller.GoogleSignoutMethod();
+//           },
+//           child: Text(
+//             'Log Out',
+//             style: GoogleFonts.catamaran(
+//               fontSize: 18,
+//               fontWeight: FontWeight.w700,
+//             ),
+//             textAlign: TextAlign.center,
+//           ),
+//         ),
+//       ],
+//     ),
+//   );
+// }
