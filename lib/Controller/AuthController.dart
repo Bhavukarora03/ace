@@ -1,24 +1,28 @@
+import 'dart:convert';
+import 'dart:math';
 import 'package:ace/Screens/Authentication/AuthenticationScreen.dart';
 
 import 'package:ace/Screens/Navigation/bottomNavigation.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:line_icons/line_icons.dart';
+
+import '../Modals/Projects_modal.dart';
 
 class AuthController extends GetxController {
-  var _googlesignin = GoogleSignIn();
-
   FirebaseAuth auth = FirebaseAuth.instance;
-  var codeController = TextEditingController();
-
-  late Rx<User?> _user;
-
+  final _googlesignin = GoogleSignIn();
   var googleSignUser = Rx<GoogleSignInAccount?>(null);
+  var codeController = TextEditingController();
+  String url = 'https://api.jsonbin.io/b/62434929d96a510f028b9865';
+  late Rx<User?> _user;
+  Projects? projects_list;
+  var isLoadingData = false.obs;
 
   @override
   void onInit() {
@@ -86,6 +90,7 @@ class AuthController extends GetxController {
 
   SignInWithEmailAndPassword(String email, password) async {
     try {
+
       await auth.signInWithEmailAndPassword(email: email, password: password);
     } catch (firebaseException) {
       Get.snackbar('Wrong Login Info Buddy', 'Wrong Info',
@@ -105,11 +110,11 @@ class AuthController extends GetxController {
         phoneNumber: phone,
         timeout: const Duration(seconds: 60),
         verificationCompleted: (PhoneAuthCredential credential) async {
-       final  phoneUser =   await auth.signInWithCredential(credential);
+          final phoneUser = await auth.signInWithCredential(credential);
 
-       if(phoneUser != null){
-         Get.to(()=> LiquidTabBar());
-       }
+          if (phoneUser != null) {
+            Get.to(() => LiquidTabBar());
+          }
         },
         verificationFailed: (FirebaseAuthException exception) {
           Get.snackbar('Verification Failed', 'for some reason',
@@ -132,5 +137,24 @@ class AuthController extends GetxController {
           }
         },
         codeAutoRetrievalTimeout: (String verificationID) {});
+  }
+
+  projectsRequests() async {
+    try {
+      isLoadingData(true);
+      http.Response response = await http.get(Uri.parse(url));
+
+      if (response.statusCode == 200) {
+        var results = jsonDecode(response.body);
+        projects_list = Projects.fromJson(results);
+      } else {
+        print(response.statusCode);
+      }
+    } catch (e) {
+      print(e);
+    }
+    finally{
+      isLoadingData(false);
+    }
   }
 }

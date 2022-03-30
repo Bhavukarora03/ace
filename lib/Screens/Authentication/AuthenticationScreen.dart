@@ -214,7 +214,9 @@ class AuthenticationScreen extends GetWidget<AuthController> {
                   ),
                   SignInButton(
                     buttonType: ButtonType.githubDark,
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.projectsRequests();
+                    },
                     padding: 10,
                   ),
                   const SizedBox(

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:chewie/chewie.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:video_player/video_player.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
@@ -86,6 +87,15 @@ ACE
 '''
   ];
 
+  List<Color> colors = [
+    Color(0xff2d353d),
+    Color(0xff003e5f),
+    Color(0xff062324),
+    Color(0xff787b74),
+    Color(0xff6c0010),
+    Color(0xff350008)
+  ];
+
   toggleMenu([bool end = false]) {
     if (end) {
       final _state = _endSideMenuKey.currentState!;
@@ -116,192 +126,182 @@ ACE
   @override
   Widget build(BuildContext context) {
     return SideMenu(
-        key: _endSideMenuKey,
-        type: SideMenuType.slideNRotate,
-        menu: Padding(
-          padding: const EdgeInsets.only(left: 25.0),
-          child: buildMenu(),
-        ),
-        onChange: (_isOpened) {
-          setState(() => isOpened = _isOpened);
-        },
-        child: SideMenu(
-            key: _sideMenuKey,
-            menu: buildMenu(),
-            type: SideMenuType.slideNRotate,
-            onChange: (_isOpened) {
-              setState(() => isOpened = _isOpened);
-            },
-            child: IgnorePointer(
-              ignoring: isOpened,
-              child: Scaffold(
-                resizeToAvoidBottomInset: false,
-                appBar: AppBar(
-                  leading: IconButton(
-                      onPressed: () => toggleMenu(true),
-                      icon: Icon(Icons.menu)),
-                  toolbarHeight: 80,
-                  backgroundColor: Colors.black,
-                  elevation: 0,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(45)),
-                  ),
-                ),
-
-
-                body: CustomScrollView(
-                  slivers: [
-                    _header(),
-                    _videoCard(),
-                    _recommendation(),
-                    SliverToBoxAdapter(
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 16, left: 22),
-                        child: const Text(
-                          "Recent",
-                          style: TextStyle(
-                            color: Color(0xff515979),
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
+      closeIcon: Icon(LineIcons.doorClosed, color: Colors.white, size: 50,),
+      background: Color(0xff062324),
+      key: _endSideMenuKey,
+      type: SideMenuType.slideNRotate,
+      menu: Padding(
+        padding: const EdgeInsets.only(left: 25.0),
+        child: buildMenu(),
+      ),
+      onChange: (_isOpened) {
+        setState(() => isOpened = _isOpened);
+      },
+        child: IgnorePointer(
+          ignoring: isOpened,
+          child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            appBar: AppBar(
+              leading: IconButton(
+                  onPressed: () => toggleMenu(true), icon: Icon(Icons.menu)),
+              toolbarHeight: 80,
+              backgroundColor: Colors.black,
+              elevation: 0,
+              shape: const RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.only(bottomLeft: Radius.circular(45)),
+              ),
+            ),
+            body: CustomScrollView(
+              slivers: [
+                _header(),
+                _videoCard(),
+                _recommendation(),
+                SliverToBoxAdapter(
+                  child: Container(
+                    margin: const EdgeInsets.only(bottom: 16, left: 22),
+                    child: const Text(
+                      "Recent",
+                      style: TextStyle(
+                        color: Color(0xff515979),
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                    _recentGrid(),
-                  ],
+                  ),
                 ),
-              ),
-            )));
+                _recentGrid(),
+              ],
+            ),
+          ),
+        ),
+
+    );
   }
 
   Widget _videoCard() {
     return SliverToBoxAdapter(
       child: Column(
         children: [
-          videoPlayerController != null
-              ? GestureDetector(
-                  dragStartBehavior: DragStartBehavior.start,
-                  onTap: () {
-                    setState(() {
-                      videoPlayerController.value.isPlaying
-                          ? videoPlayerController.pause()
-                          : videoPlayerController.play();
-                    });
-                  },
-                  child: Container(
-                    height: 250,
-                    width: 600,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(30),
-                      ),
-                    ),
-                    margin:
-                        const EdgeInsets.only(left: 22, right: 22, bottom: 22),
-                    child: AspectRatio(
-                      aspectRatio: videoPlayerController.value.aspectRatio,
-                      child: VideoPlayer(videoPlayerController),
-                    ),
-                  ),
-                )
-              : CircularProgressIndicator()
+          Padding(
+            padding: EdgeInsets.all(30),
+            child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    shape: BoxShape.rectangle),
+                child: videoPlayerController != null
+                    ? GestureDetector(
+                        dragStartBehavior: DragStartBehavior.start,
+                        onTap: () {
+                          setState(() {
+                            videoPlayerController.value.isPlaying
+                                ? videoPlayerController.pause()
+                                : videoPlayerController.play();
+                          });
+                        },
+                        child: AspectRatio(
+                          aspectRatio: videoPlayerController.value.aspectRatio,
+                          child: VideoPlayer(videoPlayerController),
+                        ),
+                      )
+                    : CircularProgressIndicator()),
+          ),
         ],
       ),
     );
   }
 
-  Widget _recommendedCards(Color gradient1, Color gradient2) {
-    return Container(
-      height: 185,
-      width: 339,
-      margin: const EdgeInsets.only(left: 22, bottom: 25, top: 22),
-      decoration: const BoxDecoration(
-        color: Colors.black87,
-        borderRadius: BorderRadius.all(Radius.circular(12)),
-      ),
-      child: Stack(
-        children: [
-          Positioned(
-            bottom: 0,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(26),
-                bottomRight: Radius.circular(26),
-              ),
-              // child: SvgPicture.asset(
-              //   'assets/pics/Vector.svg',
-              //   width: 339,
-              // ),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(26),
-                bottomRight: Radius.circular(26),
-              ),
-              child: SvgPicture.asset(
-                'assets/pics/Vector-1.svg',
-                width: 339,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 28,
-            left: 28,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  _cardTitle[0],
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 23,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  "New Ace Hour is Live!",
-                  style: TextStyle(
-                    color: Color(0xFFC6C3fc),
-                    fontSize: 16,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 25,
-            left: 28,
-            child: Row(
-              children: [
-                SvgPicture.asset(
-                  'assets/icons/headphone.svg',
-                  width: 27,
-                  height: 27,
-                  color: Colors.white,
-                ),
-                const SizedBox(
-                  width: 15,
-                ),
-                SvgPicture.asset(
-                  'assets/icons/tape.svg',
-                  width: 27,
-                  height: 27,
-                  color: Colors.white,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _recommendedCards(Color gradient1, Color gradient2) {
+  //   return Container(
+  //     height: 185,
+  //     width: 339,
+  //     margin: const EdgeInsets.only(left: 22, bottom: 25, top: 22),
+  //     decoration: const BoxDecoration(
+  //       color: Color(0xff003e5f),
+  //       borderRadius: BorderRadius.all(Radius.circular(12)),
+  //     ),
+  //     child: Stack(
+  //       children: [
+  //         Positioned(
+  //           bottom: 0,
+  //           child: ClipRRect(
+  //             borderRadius: const BorderRadius.only(
+  //               bottomLeft: Radius.circular(26),
+  //               bottomRight: Radius.circular(26),
+  //             ),
+  //             // child: SvgPicture.asset(
+  //             //   'assets/pics/Vector.svg',
+  //             //   width: 339,
+  //             // ),
+  //           ),
+  //         ),
+  //         Positioned(
+  //           bottom: 0,
+  //           child: ClipRRect(
+  //             borderRadius: const BorderRadius.only(
+  //               bottomLeft: Radius.circular(26),
+  //               bottomRight: Radius.circular(26),
+  //             ),
+  //             child: Image.asset(
+  //               'assets/images/acelogo.png',
+  //               width: 339,
+  //             ),
+  //           ),
+  //         ),
+  //         Positioned(
+  //           top: 28,
+  //           left: 28,
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               Text(
+  //                 _cardTitle[0],
+  //                 style: TextStyle(
+  //                   color: Colors.white,
+  //                   fontSize: 23,
+  //                   fontWeight: FontWeight.bold,
+  //                 ),
+  //               ),
+  //               SizedBox(
+  //                 height: 5,
+  //               ),
+  //               Text(
+  //                 "New Ace Hour is Live!",
+  //                 style: TextStyle(
+  //                   color: Color(0xFFC6C3fc),
+  //                   fontSize: 16,
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //         Positioned(
+  //           bottom: 25,
+  //           left: 28,
+  //           child: Row(
+  //             children: [
+  //               Image.asset(
+  //                 'assets/images/dish3.png',
+  //                 width: 27,
+  //                 height: 27,
+  //                 color: Colors.white,
+  //               ),
+  //               const SizedBox(
+  //                 width: 15,
+  //               ),
+  //               SvgPicture.asset(
+  //                 'assets/icons/tape.svg',
+  //                 width: 27,
+  //                 height: 27,
+  //                 color: Colors.white,
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _header() {
     return SliverToBoxAdapter(
@@ -414,18 +414,18 @@ ACE
             ],
           ),
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _recommendedCards(
-                  const Color(0xff441DFC), const Color(0xff4E81EB)),
-              _recommendedCards(
-                  const Color(0xffFC67A7), const Color(0xffF6815B)),
-            ],
-          ),
-        ),
+        // SingleChildScrollView(
+        //   scrollDirection: Axis.horizontal,
+        //   child: Row(
+        //     mainAxisSize: MainAxisSize.min,
+        //     children: [
+        //       _recommendedCards(
+        //           const Color(0xff441DFC), const Color(0xff4E81EB)),
+        //       _recommendedCards(
+        //           const Color(0xffFC67A7), const Color(0xffF6815B)),
+        //     ],
+        //   ),
+        // ),
       ],
     ));
   }
@@ -523,11 +523,8 @@ ACE
                       : AssetImage('assets/images/profileavatar.webp'),
                 ),
                 SizedBox(height: 16.0),
-                Text(
-                  "Hello, Bhavuk",
-                  style: TextStyle(color: Colors.white),
-                ),
-                SizedBox(height: 20.0),
+
+
               ],
             ),
           ),
@@ -539,7 +536,7 @@ ACE
             dense: true,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {Get.to(()=> ProfileScreen());},
             leading: const Icon(Icons.verified_user,
                 size: 20.0, color: Colors.white),
             title: const Text("Profile"),
@@ -548,16 +545,7 @@ ACE
 
             // padding: EdgeInsets.zero,
           ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.monetization_on,
-                size: 20.0, color: Colors.white),
-            title: const Text("Wallet"),
-            textColor: Colors.white,
-            dense: true,
 
-            // padding: EdgeInsets.zero,
-          ),
           ListTile(
             onTap: () {},
             leading: const Icon(Icons.shopping_cart,
@@ -571,18 +559,20 @@ ACE
           ListTile(
             onTap: () {},
             leading:
-                const Icon(Icons.star_border, size: 20.0, color: Colors.white),
-            title: const Text("Favorites"),
+                const Icon(Icons.settings, size: 20.0, color: Colors.white),
+            title: const Text("Settings"),
             textColor: Colors.white,
             dense: true,
 
             // padding: EdgeInsets.zero,
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              controller.GoogleSignoutMethod();
+            },
             leading:
-                const Icon(Icons.settings, size: 20.0, color: Colors.white),
-            title: const Text("Settings"),
+                const Icon(Icons.logout, size: 20.0, color: Colors.white),
+            title: const Text("Logout"),
             textColor: Colors.white,
             dense: true,
 

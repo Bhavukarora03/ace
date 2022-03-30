@@ -42,6 +42,7 @@ dependencies:
   shrink_sidemenu: ^2.0.0+2-null-safety
   razorpay_flutter: ^1.2.9
   slimy_card: ^1.0.4
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:

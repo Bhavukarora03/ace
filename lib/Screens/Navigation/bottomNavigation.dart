@@ -54,7 +54,7 @@ import '../Shop/Shop.dart';
       CupertinoIcons.house_alt,
       CupertinoIcons.bookmark,
       CupertinoIcons.add_circled,
-      CupertinoIcons.heart,
+      CupertinoIcons.cart,
       CupertinoIcons.person,
     ];
 
@@ -62,16 +62,17 @@ import '../Shop/Shop.dart';
       CupertinoIcons.house_alt_fill,
       CupertinoIcons.bookmark_fill,
       CupertinoIcons.add_circled_solid,
-      CupertinoIcons.heart_fill,
+      CupertinoIcons.cart_fill,
       CupertinoIcons.person_fill,
     ];
 
     List<Color> listOfColors = [
-      Color(0xffBDCBFE),
-      Color(0xffFFCDFF),
-      Color(0xffFFC6C1),
-      Color(0xffFFE8A7),
-      Color(0xff8DECA6),
+      Color(0xff2d353d),
+      Color(0xff003e5f),
+      Color(0xff062324),
+      Color(0xff787b74),
+      Color(0xff6c0010),
+
     ];
 
     int currentColor = 0;
@@ -327,7 +328,7 @@ import '../Shop/Shop.dart';
             ),
             Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.black,
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(30),
                 ),
@@ -495,7 +496,7 @@ import '../Shop/Shop.dart';
       return Icon(
         icon,
         size: 28 * size,
-        color: Colors.black.withOpacity(opacity),
+        color: Colors.grey.withOpacity(opacity),
       );
     }
 
