@@ -1,5 +1,5 @@
-import 'package:ace/Screens/ShopDetails/widget/food_detail.dart';
-import 'package:ace/Screens/ShopDetails/widget/food_image.dart';
+import 'package:ace/Screens/ShopDetails/widget/Cloth_detail.dart';
+import 'package:ace/Screens/ShopDetails/widget/Cloth_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,11 +17,12 @@ class DetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       appBar: AppBar(
         toolbarHeight: 80,
         backgroundColor: kPrimaryColor,
 
-        leading: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back)),
+        //leading: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_back)),
       ),
       backgroundColor: kPrimaryColor,
       body: SingleChildScrollView(
@@ -44,7 +45,7 @@ class DetailPage extends StatelessWidget {
         height: 56,
         child: RawMaterialButton(
           onPressed: () {},
-          fillColor: kPrimaryColor,
+          fillColor: Colors.white30,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
           elevation: 2,
@@ -53,7 +54,7 @@ class DetailPage extends StatelessWidget {
             children: [
               Icon(
                 Icons.shopping_bag_outlined,
-                color: Colors.black,
+                color: Colors.white,
                 size: 30,
               ),
               Container(
@@ -73,6 +74,7 @@ class DetailPage extends StatelessWidget {
           ),
         ),
       ),
+     floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 }

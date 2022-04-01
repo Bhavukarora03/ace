@@ -3,6 +3,7 @@ import 'package:ace/Screens/Authentication/SignUp.dart';
 import 'package:ace/Screens/Authentication/otpScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_field/phone_number.dart';
@@ -11,6 +12,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sign_button/sign_button.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:ace/Constants/Constants.dart';
+
+import '../Navigation/bottomNavigation.dart';
 
 class AuthenticationScreen extends GetWidget<AuthController> {
   TextEditingController textEditingController = TextEditingController();
@@ -22,6 +25,17 @@ class AuthenticationScreen extends GetWidget<AuthController> {
   late String email;
   late String password;
   late String phoneNumber;
+
+  final userData = GetStorage();
+
+
+
+
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +64,7 @@ class AuthenticationScreen extends GetWidget<AuthController> {
     );
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           toolbarHeight: 80,
           elevation: 5,
           backgroundColor: Colors.black,
@@ -226,7 +241,12 @@ class AuthenticationScreen extends GetWidget<AuthController> {
                       padding: 10,
                       buttonType: ButtonType.googleDark,
                       onPressed: () {
-                        controller.GoogleSignInMethod();
+                        // final SharedPreferences prefs = await SharedPreferences.getInstance();
+                        // prefs.setString('google', );
+
+                       controller.GoogleSignInMethod();
+
+
                       }),
                   const SizedBox(
                     height: 10,

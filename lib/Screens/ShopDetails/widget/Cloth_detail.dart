@@ -4,7 +4,7 @@ import 'package:flutter/painting.dart';
 
 import '../../../Constants/Constants.dart';
 import '../../Modals/ShopModal.dart';
-import 'food_quantity.dart';
+import 'Cloth_quantity.dart';
 
 class FoodDetail extends StatelessWidget {
   final Food? food;
@@ -13,7 +13,7 @@ class FoodDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.all(2),
         color: kBackground,
         child: Column(
           children: [
@@ -56,49 +56,60 @@ class FoodDetail extends StatelessWidget {
             ),
             Row(
               children: [
-                Text(
-                  'Ingredienta',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    'Sizes Available',
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                  ),
                 )
               ],
             ),
-            SizedBox(height: 10),
-            Container(
-              height: 100,
-              child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(40),
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: Container(
+                height: 80,
+                child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => Container(
+                          padding: EdgeInsets.all(30),
+                          decoration: BoxDecoration(
+                            color: Colors.black87,
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Column(
+                            children: [
+                              Text(
+                                food!.ingredients[index],
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Column(
-                          children: [
-                            Image.asset(food!.ingredients![index].values.first,
-                                width: 52),
-                            Text(food!.ingredients![index].keys.first),
-                          ],
+                    separatorBuilder: (_, index) => SizedBox(
+                          width: 5,
                         ),
-                      ),
-                  separatorBuilder: (_, index) => SizedBox(
-                        width: 15,
-                      ),
-                  itemCount: food!.ingredients!.length),
+                    itemCount: food!.ingredients.length),
+              ),
             ),
-            SizedBox(height: 30),
             Row(
               children: [
-                Text(
-                  'About',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                Padding(
+                  padding: EdgeInsets.all(12),
+                  child: Text(
+                    'About',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                  ),
                 ),
               ],
             ),
             SizedBox(height: 10),
-            Text(
-              food!.about!,
-              style: TextStyle(fontSize: 16, wordSpacing: 1.2, height: 1.5),
+            Padding(
+              padding: EdgeInsets.all(12),
+              child: Text(
+                food!.about!,
+                style: TextStyle(fontSize: 16, wordSpacing: 1.2, height: 1.5),
+              ),
             ),
             SizedBox(height: 20),
           ],

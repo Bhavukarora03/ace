@@ -22,18 +22,18 @@ class Restaurant {
 
   static Restaurant generateRestaurant() {
     return Restaurant(
-        name: 'SHOP ACE',
-        waitTime: "20-30min",
+        name: 'SHOP ACE !',
+        waitTime: "Get it Next Day",
         distance: '2.4km',
-        label: 'Restaurant',
+        label: 'Quality Assured',
         logoUrl: 'assets/images/acelogo.png',
         desc: 'Get all your Merch here!',
         score: 4.7,
         menu: {
-          'Recommend': Food.generateRecommendFoods(),
-          'Popular': Food.generatePopularFood()!,
-          'Noodles': [],
-          'Pizza': [],
+          'Trending': Food.generateRecommendFoods(),
+          'Latest Collection': Food.generatePopularFood()!,
+          'Accessories': [],
+          'Hoddies': [],
         });
   }
 }

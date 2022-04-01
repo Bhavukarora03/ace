@@ -16,6 +16,9 @@ class Assets {
   static const String imagesIngre4 = 'assets/images/ingre4.png';
   static const String imagesProfileavatar = 'assets/images/profileavatar.webp';
   static const String imagesResLogo = 'assets/images/res_logo.png';
+  static const String imagesSample1 = 'assets/images/sample1.png';
+  static const String imagesSample2 = 'assets/images/sample2.png';
+  static const String imagesSample3 = 'assets/images/sample3.png';
   static const String lottieAce = 'assets/lottie/ace.json';
   static const String lottieNews = 'assets/lottie/News.json';
   static const String lottieProfile = 'assets/lottie/profile.json';

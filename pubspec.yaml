@@ -43,6 +43,14 @@ dependencies:
   razorpay_flutter: ^1.2.9
   slimy_card: ^1.0.4
   auto_size_text: ^3.0.0
+  get_storage: ^2.0.3
+  flutter_secure_storage: ^5.0.2
+  flutter_native_splash: ^2.1.2+1
+  google_nav_bar: ^5.0.5
+  shimmer: ^2.0.0
+  cached_network_image: ^3.2.0
+  url_launcher: ^6.0.20
+
 
 dev_dependencies:
   flutter_test:

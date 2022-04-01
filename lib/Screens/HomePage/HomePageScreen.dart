@@ -1,14 +1,14 @@
 import 'package:ace/Controller/AuthController.dart';
+import 'package:ace/Strings_data.dart';
 
 import 'package:ace/Screens/Profile/ProfileScreen.dart';
+import 'package:ace/Services/Storage.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:chewie/chewie.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:video_player/video_player.dart';
 import 'package:getwidget/components/avatar/gf_avatar.dart';
@@ -26,6 +26,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final SecureStorage secureStorage = SecureStorage();
   late final VideoPlayerController videoPlayerController;
 
   @override
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
     videoPlayerController.dispose();
   }
 
-  AuthController controller = Get.put(AuthController());
+  final AuthController controller = Get.find();
 
   String headlinesHeads = 'Latest';
 
@@ -60,32 +61,7 @@ class _HomePageState extends State<HomePage> {
   ];
   int _counter = 0;
   bool isOpened = false;
-  final List<String> _title = [
-    '''
-Upcoming
-Events
-''',
-    '''
-ACE Magazine
-''',
-    '''
-Hack
-VSIT
 
-''',
-    '''
-Get Into
-ACE
-''',
-    '''
-Get Into
-ACE
-''',
-    '''
-Get Into
-ACE
-'''
-  ];
 
   List<Color> colors = [
     Color(0xff2d353d),
@@ -95,24 +71,6 @@ ACE
     Color(0xff6c0010),
     Color(0xff350008)
   ];
-
-  toggleMenu([bool end = false]) {
-    if (end) {
-      final _state = _endSideMenuKey.currentState!;
-      if (_state.isOpened) {
-        _state.closeSideMenu();
-      } else {
-        _state.openSideMenu();
-      }
-    } else {
-      final _state = _sideMenuKey.currentState!;
-      if (_state.isOpened) {
-        _state.closeSideMenu();
-      } else {
-        _state.openSideMenu();
-      }
-    }
-  }
 
   final List<String> _cardTitle = ['Learn GIT', 'Upcoming Hack'];
 
@@ -125,58 +83,76 @@ ACE
 
   @override
   Widget build(BuildContext context) {
-    return SideMenu(
-      closeIcon: Icon(LineIcons.doorClosed, color: Colors.white, size: 50,),
-      background: Color(0xff062324),
-      key: _endSideMenuKey,
-      type: SideMenuType.slideNRotate,
-      menu: Padding(
-        padding: const EdgeInsets.only(left: 25.0),
-        child: buildMenu(),
-      ),
-      onChange: (_isOpened) {
-        setState(() => isOpened = _isOpened);
-      },
-        child: IgnorePointer(
-          ignoring: isOpened,
-          child: Scaffold(
-            resizeToAvoidBottomInset: false,
-            appBar: AppBar(
-              leading: IconButton(
-                  onPressed: () => toggleMenu(true), icon: Icon(Icons.menu)),
-              toolbarHeight: 80,
-              backgroundColor: Colors.black,
-              elevation: 0,
-              shape: const RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(45)),
-              ),
+    return DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          drawerScrimColor: Colors.black87,
+          drawer: _draweritems(),
+          appBar: AppBar(
+            bottom: TabBar(
+              indicatorSize: TabBarIndicatorSize.tab,
+              unselectedLabelColor: Colors.grey,
+              indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10), // Creates border
+                  color: Colors.black87),
+              tabs: [
+                Tab(
+                  text: "Home",
+                ),
+                Tab(
+                  text: "Upcoming Evenets",
+                ),
+              ],
             ),
-            body: CustomScrollView(
-              slivers: [
-                _header(),
-                _videoCard(),
-                _recommendation(),
-                SliverToBoxAdapter(
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 16, left: 22),
-                    child: const Text(
-                      "Recent",
-                      style: TextStyle(
-                        color: Color(0xff515979),
-                        fontSize: 15,
-                        fontWeight: FontWeight.w500,
+            iconTheme: IconThemeData(color: Colors.black),
+            backgroundColor: Color(0xFFF5F5F5),
+            elevation: 0,
+          ),
+          body: TabBarView(
+            children: [
+              CustomScrollView(
+                slivers: [
+                  _header(),
+                  _videoCard(),
+                  _recommendation(),
+                  SliverToBoxAdapter(
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 16, left: 22),
+                      child: const Text(
+                        "Recent",
+                        style: TextStyle(
+                          color: Color(0xff515979),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                _recentGrid(),
-              ],
-            ),
+                  _recentGrid(),
+                ],
+              ),
+              CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: Container(
+                      height: 100,
+                      width: 100,
+                      margin: const EdgeInsets.only(bottom: 16, left: 22),
+                      child: const Text(
+                        "Recent",
+                        style: TextStyle(
+                          color: Color(0xff515979),
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              )
+            ],
           ),
-        ),
-
-    );
+        ));
   }
 
   Widget _videoCard() {
@@ -308,7 +284,6 @@ ACE
       child: Column(
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 40),
             padding: const EdgeInsets.only(top: 20, left: 22, right: 22),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,23 +291,8 @@ ACE
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Hey, ${controller.googleSignUser.value?.displayName ?? ''}",
-                      style: const TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'SF Pro Display',
-                        fontSize: 25,
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 10),
-                      height: 2.2,
-                      width: 33,
-                      decoration: const BoxDecoration(
-                        color: Color(0xff4271d3),
-                      ),
-                    ),
+
+
                   ],
                 ),
                 const Spacer(),
@@ -480,7 +440,7 @@ ACE
                   left: 20,
                   top: 20,
                   child: Text(
-                    _title[index],
+                    title[index],
                     maxLines: 2,
                     style: const TextStyle(
                       color: Colors.white,
@@ -502,161 +462,156 @@ ACE
     );
   }
 
-  Widget buildMenu() {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.symmetric(vertical: 50.0),
+  Widget _draweritems() {
+    return Drawer(
+      elevation: 0,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GFAvatar(
-                  radius: 40,
-                  backgroundImage: controller.googleSignUser.value != null
-                      ? Image.network(
-                              controller.googleSignUser.value?.photoUrl ?? '')
-                          .image
-                      : AssetImage('assets/images/profileavatar.webp'),
-                ),
-                SizedBox(height: 16.0),
+          const SizedBox(
+            height: 60,
+          ),
 
-
-              ],
+          const SizedBox(
+            height: 60,
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.to(() => ProfileScreen());
+            },
+            child: Text(
+              'Profile',
+              style: GoogleFonts.catamaran(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
-          ListTile(
+          const SizedBox(
+            height: 45,
+          ),
+          GestureDetector(
             onTap: () {},
-            leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
-            title: const Text("Home"),
-            textColor: Colors.white,
-            dense: true,
+            child: Text(
+              'Settings',
+              style: GoogleFonts.catamaran(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
-          ListTile(
-            onTap: () {Get.to(()=> ProfileScreen());},
-            leading: const Icon(Icons.verified_user,
-                size: 20.0, color: Colors.white),
-            title: const Text("Profile"),
-            textColor: Colors.white,
-            dense: true,
-
-            // padding: EdgeInsets.zero,
+          const SizedBox(
+            height: 45,
           ),
-
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.shopping_cart,
-                size: 20.0, color: Colors.white),
-            title: const Text("Cart"),
-            textColor: Colors.white,
-            dense: true,
-
-            // padding: EdgeInsets.zero,
+          Text(
+            'About',
+            style: GoogleFonts.catamaran(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
+            textAlign: TextAlign.center,
           ),
-          ListTile(
-            onTap: () {},
-            leading:
-                const Icon(Icons.settings, size: 20.0, color: Colors.white),
-            title: const Text("Settings"),
-            textColor: Colors.white,
-            dense: true,
-
-            // padding: EdgeInsets.zero,
+          const SizedBox(
+            height: 45,
           ),
-          ListTile(
-            onTap: () {
-              controller.GoogleSignoutMethod();
+          GestureDetector(
+            onTap: () async {
+              await controller.GoogleSignoutMethod().whenComplete(() {
+                secureStorage.removeSecureData('email');
+              });
             },
-            leading:
-                const Icon(Icons.logout, size: 20.0, color: Colors.white),
-            title: const Text("Logout"),
-            textColor: Colors.white,
-            dense: true,
-
-            // padding: EdgeInsets.zero,
+            child: Text(
+              'Log Out',
+              style: GoogleFonts.catamaran(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
         ],
       ),
     );
   }
+  // Widget buildMenu() {
+  //   return SingleChildScrollView(
+  //     padding: const EdgeInsets.symmetric(vertical: 50.0),
+  //     child: Column(
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Padding(
+  //           padding: const EdgeInsets.only(left: 16.0),
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               GFAvatar(
+  //                 radius: 40,
+  //                 backgroundImage: controller.googleSignUser.value != null
+  //                     ? Image.network(
+  //                             controller.googleSignUser.value?.photoUrl ?? '')
+  //                         .image
+  //                     : AssetImage('assets/images/profileavatar.webp'),
+  //               ),
+  //               SizedBox(height: 16.0),
+  //             ],
+  //           ),
+  //         ),
+  //         ListTile(
+  //           onTap: () {},
+  //           leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
+  //           title: const Text("Home"),
+  //           textColor: Colors.white,
+  //           dense: true,
+  //         ),
+  //         ListTile(
+  //           onTap: () {
+  //             Get.to(() => ProfileScreen());
+  //           },
+  //           leading: const Icon(Icons.verified_user,
+  //               size: 20.0, color: Colors.white),
+  //           title: const Text("Profile"),
+  //           textColor: Colors.white,
+  //           dense: true,
+  //
+  //           // padding: EdgeInsets.zero,
+  //         ),
+  //         ListTile(
+  //           onTap: () {},
+  //           leading: const Icon(Icons.shopping_cart,
+  //               size: 20.0, color: Colors.white),
+  //           title: const Text("Cart"),
+  //           textColor: Colors.white,
+  //           dense: true,
+  //
+  //           // padding: EdgeInsets.zero,
+  //         ),
+  //         ListTile(
+  //           onTap: () {},
+  //           leading:
+  //               const Icon(Icons.settings, size: 20.0, color: Colors.white),
+  //           title: const Text("Settings"),
+  //           textColor: Colors.white,
+  //           dense: true,
+  //
+  //           // padding: EdgeInsets.zero,
+  //         ),
+  //         ListTile(
+  //           onTap: () async {
+  //             await controller.GoogleSignoutMethod().whenComplete(() {
+  //               secureStorage.removeSecureData('email');
+  //             });
+  //           },
+  //           leading: const Icon(Icons.logout, size: 20.0, color: Colors.white),
+  //           title: const Text("Logout"),
+  //           textColor: Colors.white,
+  //           dense: true,
+  //
+  //           // padding: EdgeInsets.zero,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }
-// Widget _draweritems(){
-//   return Drawer(
-//     elevation: 0,
-//     child: Column(
-//       children: <Widget>[
-//         const SizedBox(
-//           height: 30,
-//         ),
-//         DrawerHeader(
-//             child: GFAvatar(
-//           radius: 100,
-//           backgroundImage: controller.googleSignUser.value != null
-//               ? Image.network(controller.googleSignUser.value?.photoUrl ?? '')
-//                   .image
-//               : AssetImage('assets/images/profileavatar.webp'),
-//         )),
-//         const SizedBox(
-//           height: 20,
-//         ),
-//         GestureDetector(
-//           onTap: () {
-//             Get.to(() => ProfileScreen());
-//           },
-//           child: Text(
-//             'Profile',
-//             style: GoogleFonts.catamaran(
-//               fontSize: 18,
-//               fontWeight: FontWeight.w700,
-//             ),
-//             textAlign: TextAlign.center,
-//           ),
-//         ),
-//         const SizedBox(
-//           height: 45,
-//         ),
-//         GestureDetector(
-//           onTap: () {},
-//           child: Text(
-//             'Settings',
-//             style: GoogleFonts.catamaran(
-//               fontSize: 18,
-//               fontWeight: FontWeight.w700,
-//             ),
-//             textAlign: TextAlign.center,
-//           ),
-//         ),
-//         const SizedBox(
-//           height: 45,
-//         ),
-//         Text(
-//           'About',
-//           style: GoogleFonts.catamaran(
-//             fontSize: 18,
-//             fontWeight: FontWeight.w700,
-//           ),
-//           textAlign: TextAlign.center,
-//         ),
-//         const SizedBox(
-//           height: 45,
-//         ),
-//         GestureDetector(
-//           onTap: () {
-//             controller.GoogleSignoutMethod();
-//           },
-//           child: Text(
-//             'Log Out',
-//             style: GoogleFonts.catamaran(
-//               fontSize: 18,
-//               fontWeight: FontWeight.w700,
-//             ),
-//             textAlign: TextAlign.center,
-//           ),
-//         ),
-//       ],
-//     ),
-//   );
-// }

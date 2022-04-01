@@ -7,7 +7,7 @@ class Food {
   String? cal;
   num? price;
   num? quantity;
-  List<Map<String, String>>? ingredients;
+  List<String> ingredients;
   String? about;
   bool highLight;
   Food(
@@ -19,66 +19,55 @@ class Food {
         this.cal,
         this.price,
         this.quantity,
-        this.ingredients,
+        required this.ingredients,
         this.about,
         this.highLight = false});
   static List<Food> generateRecommendFoods() {
     return [
       Food(
-        imgUrl: 'assets/images/dish1.png',
+        imgUrl: 'assets/images/sample2.png',
         desc: 'No1. in sales',
         name: 'ACE Hoddie',
         waitTIme: '50min',
         score: 4.8,
-        cal: '325 Kcal',
-        price: 12,
-        quantity: 1,
-        ingredients: [
-          {'Noodle': 'assets/images/ingre1.png'},
-          {'Shrimp': 'assets/images/ingre2.png'},
-          {'Egg': 'assets/images/ingre3.png'},
-          {'Scallion': 'assets/images/ingre4.png'},
-          {'Noodle': 'assets/images/ingre1.png'},
-        ],
-        about:
-        'Soba Noodle Soup, or Toshikoshi Soba, symbolizes good luck in the new year and is traditionally eaten by the Japanese on the 31st of December.',
-        highLight: true,
-      ),
-      Food(
-        imgUrl: 'assets/images/dish2.png',
-        desc: 'No1. in sales',
-        name: 'ACE HOODIE',
-        waitTIme: '50min',
-        score: 4.8,
-        cal: '325 Kcal',
+        cal: '',
         price: 499,
         quantity: 1,
         ingredients: [
-          {'Noodle': 'assets/images/ingre1.png'},
-          {'Shrimp': 'assets/images/ingre2.png'},
-          {'Egg': 'assets/images/ingre3.png'},
-          {'Scallion': 'assets/images/ingre4.png'},
-          {'Noodle': 'assets/images/ingre1.png'},
+          'S', 'M', 'L', 'XL', 'XXL'
+        ],
+        about:
+        "This is The ACE Store's Grey Melange Oversized T-Shirt. Crafted from cotton, "
+            " this oversized t-shirt for men is your go-to choice for every casual occasion as "
+            "it keeps you at ease through every season.",
+        highLight: true,
+      ),
+      Food(
+        imgUrl: 'assets/images/sample3.png',
+        desc: 'No1. in sales',
+        name: 'HACKVSIT MERCH',
+        waitTIme: '50min',
+        score: 4.8,
+        cal: '',
+        price: 499,
+        quantity: 1,
+        ingredients: ['S', 'M', 'L', 'XL', 'XXL'
         ],
         about:
         ' A vibrant Thai sausage made with ground chicken, plus its spicy chile dip, from Chef Parnass Savang of Atlanta\'s Talat Market.',
         highLight: false,
       ),
       Food(
-        imgUrl: 'assets/images/dish3.png',
+        imgUrl: 'assets/images/sample1.png',
         desc: 'No1. in sales',
-        name: 'Ratatoullie Pasta',
+        name: 'TECHDAY MERCH',
         waitTIme: '50min',
         score: 4.8,
-        cal: '325 Kcal',
-        price: 12,
+        cal: '',
+        price: 299,
         quantity: 1,
         ingredients: [
-          {'Noodle': 'assets/images/ingre1.png'},
-          {'Shrimp': 'assets/images/ingre2.png'},
-          {'Egg': 'assets/images/ingre3.png'},
-          {'Scallion': 'assets/images/ingre4.png'},
-          {'Noodle': 'assets/images/ingre1.png'},
+          'S', 'M', 'L', 'XL', 'XXL'
         ],
         about:
         'A ratatouille is, by its very definition, a combination of vegetables fried and then simmered in a tomato sauce.',
@@ -99,11 +88,7 @@ class Food {
           price: 12,
           quantity: 1,
           ingredients: [
-            {'Noodle': 'assets/images/dish1.png'},
-            {'Shrimp': 'assets/images/dish2.png'},
-            {'Egg': 'assets/images/dish3.png'},
-            {'Scallion': 'assets/images/dish4.png'},
-            {'Noodle': 'assets/images/dish.png'},
+            'S','M', 'L', 'XL', 'XXL'
           ],
           about:
           'Tomato Chicken Curry (Tamatar Murgh) is an Indian chicken curry cooked with lots of fresh tomatoes and mild spices. It goes very well with Indian bread or steamed rice.',
@@ -118,11 +103,7 @@ class Food {
           price: 12,
           quantity: 1,
           ingredients: [
-            {'Noodle': 'assets/images/dish1.png'},
-            {'Shrimp': 'assets/images/ingre2.png'},
-            {'Egg': 'assets/images/ingre3.png'},
-            {'Scallion': 'assets/images/ingre4.png'},
-            {'Noodle': 'assets/images/ingre1.png'},
+            'S', 'M', 'L', 'XL', 'XXL'
           ],
           about:
           'Soba Noodle Soup, or Toshikoshi Soba, symbolizes good luck in the new year and is traditionally eaten by the Japanese on the 31st of December.',

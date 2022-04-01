@@ -21,11 +21,10 @@ class _ShopMerchState extends State<ShopMerch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:   AppBar(
+      appBar: AppBar(
         automaticallyImplyLeading: false,
-        toolbarHeight: 50,
-        elevation: 5,
-        backgroundColor: Colors.black,
+        elevation: 0,
+        backgroundColor: kBackground,
 
       ),
       backgroundColor: kBackground,

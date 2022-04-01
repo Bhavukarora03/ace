@@ -1,15 +1,13 @@
-import 'dart:math';
+
 import 'package:ace/Controller/AuthController.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import 'package:ace/Strings_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:slimy_card/slimy_card.dart';
-
-GlobalKey<ScaffoldState> scfldKey = GlobalKey<ScaffoldState>();
+import 'package:shimmer/shimmer.dart';
 
 class NewsView extends StatefulWidget {
   @override
@@ -19,18 +17,6 @@ class NewsView extends StatefulWidget {
 class _NewsViewState extends State<NewsView> with TickerProviderStateMixin {
   final projectsController = Get.put(AuthController());
 
-  List<Color> colors = [
-    Color(0xff2d353d),
-    Color(0xff003e5f),
-    Color(0xff062324),
-    Color(0xff787b74),
-    Color(0xff6c0010),
-    Color(0xff350008)
-  ];
-
-  Color? slimyCardcolors =
-      Colors.primaries[Random().nextInt(Colors.primaries.length)];
-
   String? img = '';
   String? title = '';
   String content = '';
@@ -39,7 +25,6 @@ class _NewsViewState extends State<NewsView> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     projectsController.projectsRequests();
   }
@@ -49,58 +34,54 @@ class _NewsViewState extends State<NewsView> with TickerProviderStateMixin {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        backgroundColor: Colors.black,
-
+        backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Obx(
-        () => projectsController.isLoadingData.value
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : ListView.builder(
-                itemCount: projectsController.projects_list?.card?.length,
-                itemBuilder: (BuildContext context, int index) {
-                  try {
-                    img = projectsController.projects_list!.card![index].images;
-                  } catch (e) {}
-                  try {
-                    title =
-                        projectsController.projects_list!.card![index].title;
-                  } catch (e) {}
-                  try {
-                    madeBy =
-                        projectsController.projects_list!.card![index].madeby;
-                  } catch (e) {}
-
-                  try {
-                    content =
-                        projectsController.projects_list!.card![index].content!;
-                  } catch (e) {}
-                  try {
-                    upperTag =
-                        projectsController.projects_list!.card![index].tools!;
-                  } catch (e) {}
-
-                  return Padding(
-                    padding: EdgeInsets.all(25),
-                    child: SlimyCard(
-                      color: colors[index % colors.length],
-                      width: 400,
-                      topCardHeight: 200,
-                      bottomCardHeight: 400,
-                      borderRadius: 12,
-                      topCardWidget: _widget01(),
-                      bottomCardWidget: _widget02(),
-                      slimeEnabled: true,
-                    ),
-                  );
-                },
-              ),
-      ),
+      body: Obx(() => projectsController.isLoadingData.value
+          ? Shimmer.fromColors(
+              baseColor: Colors.black87,
+              highlightColor: Colors.blueGrey,
+              child: WidgetlistView())
+          : WidgetlistView()),
     );
   }
+  Widget WidgetlistView() {
+    return ListView.builder(
+      itemCount: projectsController.projects_list?.card?.length,
+      itemBuilder: (BuildContext context, int index) {
+        try {
+          img = projectsController.projects_list!.card![index].images;
+        } catch (e) {}
+        try {
+          title = projectsController.projects_list!.card![index].title;
+        } catch (e) {}
+        try {
+          madeBy = projectsController.projects_list!.card![index].madeby;
+        } catch (e) {}
 
+        try {
+          content = projectsController.projects_list!.card![index].content!;
+        } catch (e) {}
+        try {
+          upperTag = projectsController.projects_list!.card![index].tools!;
+        } catch (e) {}
+
+        return Padding(
+          padding: EdgeInsets.all(25),
+          child: SlimyCard(
+            color: Slimycolors[index % Slimycolors.length],
+            width: 400,
+            topCardHeight: 200,
+            bottomCardHeight: 400,
+            borderRadius: 12,
+            topCardWidget: _widget01(),
+            bottomCardWidget: _widget02(),
+            slimeEnabled: true,
+          ),
+        );
+      },
+    );
+  }
   Widget _widget01() {
     return Stack(
       clipBehavior: Clip.none,
@@ -135,7 +116,6 @@ class _NewsViewState extends State<NewsView> with TickerProviderStateMixin {
       ],
     );
   }
-
   Widget _widget02() {
     return SingleChildScrollView(
 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -154,21 +134,19 @@ class _NewsViewState extends State<NewsView> with TickerProviderStateMixin {
               ),
             ),
           ),
-
-            Container(
-              decoration: BoxDecoration(
-                  color: Colors.black87,
-                  borderRadius: BorderRadius.circular(8),
-                  shape: BoxShape.rectangle),
-              child: Padding(
-                padding:EdgeInsets.all(10),
-                child: Text(
-                  upperTag,
-                  style: TextStyle(color: Colors.white),
-                ),
+          Container(
+            decoration: BoxDecoration(
+                color: Colors.black87,
+                borderRadius: BorderRadius.circular(8),
+                shape: BoxShape.rectangle),
+            child: Padding(
+              padding: EdgeInsets.all(10),
+              child: Text(
+                upperTag,
+                style: TextStyle(color: Colors.white),
               ),
             ),
-
+          ),
         ],
       ),
     );

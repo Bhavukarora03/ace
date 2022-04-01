@@ -1,11 +1,33 @@
+import 'dart:async';
+
+import 'package:ace/Controller/AuthController.dart';
 import 'package:ace/Screens/Authentication/AuthenticationScreen.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:concentric_transition/concentric_transition.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
-class Home extends StatelessWidget {
+import '../Services/Storage.dart';
+import 'Navigation/bottomNavigation.dart';
+
+
+
+class Home extends StatefulWidget {
   Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  final autoLoginController = Get.put(AuthController());
+
+
+
+
 
   final data = [
     CardPlanetData(
@@ -40,23 +62,33 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ConcentricPageView(
-        colors: data.map((e) => e.backgroundColor).toList(),
-        itemCount: data.length,
-        verticalPosition: 0.7,
-        radius: 30,
-        curve: Curves.easeInOutQuad,
+      body: AnimatedSplashScreen(
+        splash: Lottie.asset("assets/lottie/splash.json"),
+        duration: 3000,
+        curve: Curves.easeInCirc,
+        nextScreen:   ConcentricPageView(
+          colors: data.map((e) => e.backgroundColor).toList(),
+          itemCount: data.length,
+          verticalPosition: 0.7,
+          radius: 30,
+          curve: Curves.easeInOutQuad,
 
-        direction: Axis.vertical,
-        //  physics: NeverScrollableScrollPhysics(),
-        onFinish: () {
-          Get.off(() => AuthenticationScreen());
-        },
-        itemBuilder: (int index, double value) {
-          return CardPlanet(data: data[index]);
-        },
+          direction: Axis.vertical,
+          //  physics: NeverScrollableScrollPhysics(),
+          onFinish: () {
+            //Get.off(() => AuthenticationScreen());
+          },
+          itemBuilder: (int index, double value) {
+            return CardPlanet(data: data[index]);
+          },
+        ),
       ),
-    );
+        backgroundColor: Colors.black,
+
+
+      );
+
+
   }
 }
 

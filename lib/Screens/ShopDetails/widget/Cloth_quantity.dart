@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:line_icons/line_icon.dart';
+import 'package:line_icons/line_icons.dart';
 
 import '../../../Constants/Constants.dart';
 import '../../Modals/ShopModal.dart';
@@ -34,12 +36,12 @@ class FoodQuantity extends StatelessWidget {
                     width: 15,
                   ),
                   Text(
-                    '\$',
+                    '\₹',
                     style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     food!.price!.toString(),
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                 ]),
               ),
@@ -48,7 +50,7 @@ class FoodQuantity extends StatelessWidget {
               alignment: Alignment(0.1, 0),
               child: Container(
                 height: double.maxFinite,
-                width: 100,
+                width: 130,
                 decoration: BoxDecoration(
                   color: kPrimaryColor,
                   borderRadius: BorderRadius.circular(30),
@@ -56,11 +58,11 @@ class FoodQuantity extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      '-',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+                    IconButton(onPressed: (){
+
+                    }, icon: LineIcon(LineIcons.minus, color: Colors.white,size: 20,)),
+
+
                     Container(
                       padding: EdgeInsets.all(12),
                       decoration: BoxDecoration(
@@ -69,12 +71,9 @@ class FoodQuantity extends StatelessWidget {
                         food!.quantity!.toString(),
                       ),
                     ),
-                    Text(
-                      '+',
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                  ],
+
+                    IconButton(onPressed: (){}, icon: Icon(Icons.add, color: Colors.white, size: 20,)),
+                    ],
                 ),
               ),
             ),
